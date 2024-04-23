@@ -7,16 +7,15 @@
 
 Slap, a full-stack application inspired by Slack, is a messaging service where teams can communicate in a variety of channels.
 
+## Author
+ * Teagan Stutsman
+   * https://github.com/TStutsman
+
 ## Database Schema Design
 
 ![db-schema]()
 
 ## Get Started
-
-## Author
- * Teagan Stutsman
-   * https://github.com/TStutsman
-
 
 **Prerequisites**
 - NPM
