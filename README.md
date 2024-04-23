@@ -9,7 +9,7 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
 
 ## Database Schema Design
 
-![db-schema]()
+![db-schema](https://github.com/TStutsman/slap/blob/readme-images/db_schema.png)
 
 ## Get Started
 
