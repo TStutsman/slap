@@ -5,9 +5,23 @@
 }
 
 #channel-details {
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-color: #7f7f7f;
+    padding: 0 30px;
+
+    border-top: 1px ridge;
+    border-bottom: 1px ridge;
+    border-color: var(--grey);
+}
+
+#channel-details p {
+    padding: 5px 10px;
+    border: 1px solid var(--grey);
+    border-radius: 25px;
+}
+
+#message-feed {
+    padding: 0 30px;
 }
