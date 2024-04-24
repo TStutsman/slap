@@ -1,0 +1,60 @@
+#loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    color: #fff;
+}
+
+#loading-page h1 {
+    font-weight: 600;
+}
+
+#loading-page p {
+    display: inline;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+#loading1 {
+    padding-bottom: 0;
+    animation-name: rise-fall;
+    animation-timing-function: ease;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+}
+
+#loading2 {
+    padding-bottom: 0;
+    animation-name: rise-fall;
+    animation-timing-function: ease;
+    animation-duration: 1.4s;
+    animation-delay: .2s;
+    animation-iteration-count: infinite;
+}
+
+#loading3 {
+    padding-bottom: 0;
+    animation-name: rise-fall;
+    animation-timing-function: ease;
+    animation-duration: 1.4s;
+    animation-delay: .4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rise-fall {
+    0% {
+        padding-bottom: 0;
+    }
+    50% {
+        padding-bottom: 0;
+    }
+    75% {
+        padding-bottom: 10px;
+    }
+    100% {
+        padding-bottom: 0;
+    }
+}
