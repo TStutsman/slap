@@ -41,9 +41,9 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
-      </button>
+      <div id='user-profile' onClick={toggleMenu}>
+        <img src="https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png" alt="profile_default" />
+      </div>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
