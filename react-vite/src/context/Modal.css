@@ -20,5 +20,11 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  max-height: 100vh;
+  overflow-y: scroll;
+
+  border-radius: 8px;
+
+  color: #fff;
+  background-color: var(--black);
 }

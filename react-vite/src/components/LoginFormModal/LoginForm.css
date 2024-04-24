@@ -12,7 +12,9 @@
 }
 
 .login-modal label {
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 300;
+    color: #d9d9d9;
 }
 
 .login-modal input {
@@ -22,10 +24,13 @@
 
     padding: 10px;
 
-    border-color: #d9d9d9;
+    border-color: #212121;
     border-style: solid;
     border-width: 1px;
     border-radius: 8px;
+
+    color: #fff;
+    background-color: #3f3f3f;
 
     font-size: 16px;
 
@@ -33,12 +38,12 @@
 }
 
 .login-modal input:hover {
-    border-color: #212121;
+    border-color: #d9d9d9;
 }
 
 .login-modal input:focus {
     outline: none;
-    border-color: #212121;
+    border-color: #d9d9d9;
 }
 
 .login-modal label, .login-modal input, .login-modal button, .login-modal p {
@@ -57,8 +62,20 @@
     margin-top: 10px;
     height: 50px;
 
-    font-size: 14px;
+    border: 1px solid #212121;
+    border-radius: 4px;
+
+    color: #fff;
+    background-color: var(--blue);
+
+    font-size: 16px;
     font-weight: 500;
+
+    transition: background-color .3s ease;
+}
+
+.login-modal button:hover {
+    background-color: var(--blue-hover);
 }
 
 .login-modal button:disabled {

@@ -1,0 +1,65 @@
+#landing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    color: #fff;
+    background: linear-gradient(var(--black), #151515);
+}
+
+#landing-intro {
+    margin: 0 0 50px 15%;
+
+    align-self: flex-start;
+}
+
+#landing-intro > h1 {
+    position: relative;
+
+    font-size: 80px;
+    font-weight: 700;
+}
+
+#landing-intro > p {
+    font-size: 24px;
+    font-weight: 400;
+
+    width: 650px;
+}
+
+#landing-buttons {
+    box-sizing: border-box;
+    height: 220px;
+    padding: 15px;
+}
+
+#landing-buttons > * {
+    border: 1px solid #212121;
+    border-radius: 8px;
+
+    width: 180px;
+    height: 50px;
+    margin: 0 10px;
+
+    color: #fff;
+    transition: background-color .3s ease;
+}
+
+#landing-buttons > button:first-child {
+    background-color: var(--blue);
+}
+
+#landing-buttons > button:first-child:hover {
+    background-color: var(--blue-hover);
+}
+
+#landing-buttons > button:last-child {
+    background-color: var(--lt-green);
+}
+
+#landing-buttons > button:last-child:hover {
+    background-color: var(--lt-green-hover);
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
@@ -39,6 +39,15 @@ function SignupFormModal() {
       closeModal();
     }
   };
+
+  useEffect(() => {
+    if(errors.confirmPassword) {
+      if (password == confirmPassword) {
+        const { confirmPassword, ...newErrors } = errors;
+        return setErrors(newErrors);
+      }
+    }
+  }, [confirmPassword, errors])
 
   return (
     <div className="signup-modal">
@@ -105,7 +114,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={!!Object.keys(errors).length}>Sign Up</button>
       </form>
     </div>
   );
