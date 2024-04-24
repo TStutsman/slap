@@ -43,11 +43,12 @@ function SignupFormModal() {
   useEffect(() => {
     if(errors.confirmPassword) {
       if (password == confirmPassword) {
-        const { confirmPassword, ...newErrors } = errors;
+        const newErrors = {...errors};
+        delete newErrors.confirmPassword;
         return setErrors(newErrors);
       }
     }
-  }, [confirmPassword, errors])
+  }, [confirmPassword, password, errors])
 
   return (
     <div className="signup-modal">

@@ -16,6 +16,7 @@ class Channel(db.Model):
     created_at = db.Column(db.Date, nullable=False, default=datetime.now())
 
     workspace = db.relationship('Workspace', back_populates='channels')
+    messages = db.relationship('Message', back_populates='channel')
     users = db.relationship('User', secondary='user_channels', back_populates='channels')
 
     def to_dict(self):
