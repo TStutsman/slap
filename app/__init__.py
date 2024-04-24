@@ -25,6 +25,11 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+
+# all urls match without redirect for /route/ and /route
+# important for @login required
+app.url_map.strict_slashes = False
+
 app.register_blueprint(api, url_prefix='/api')
 db.init_app(app)
 Migrate(app, db)

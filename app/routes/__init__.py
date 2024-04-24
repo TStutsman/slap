@@ -1,6 +1,6 @@
 from flask import Blueprint
-from user_routes import user
-from auth_routes import auth
+from .user_routes import user
+from .auth_routes import auth
 
 api = Blueprint('api', __name__)
 
