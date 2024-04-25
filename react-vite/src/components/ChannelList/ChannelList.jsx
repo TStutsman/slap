@@ -10,7 +10,7 @@ import { useChannel } from "../../context/Channel";
 
 function ChannelList() {
     const dispatch = useDispatch();
-    const { setChannelId } = useChannel();
+    const { channelId, setChannelId } = useChannel();
     const channels = useSelector(state => state.channels)
     const [showChannels, setShowChannels] = useState(true);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -36,7 +36,7 @@ function ChannelList() {
                 }
             </div>
             { showChannels && channels.allIds.map(id => (
-            <div key={id} onClick={() => setChannelId(id)}>{channels.byId[id].name}</div>
+            <div key={id} className={"no-select channel-list-item" + (channelId === id ? " selected" : "")} onClick={() => setChannelId(id)}>{channels.byId[id].name}</div>
             ))}
         </div>
     );
