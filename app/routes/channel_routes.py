@@ -1,6 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import User
+from app.models import db, Channel
+from app.forms import ChannelForm
 
 channels = Blueprint('channels', __name__)
 
@@ -23,7 +24,26 @@ def create_new_channel():
     """
     Creates a new Channel based off the input from the user through ChannelForm
     """
-    pass
+    form = ChannelForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not form.validate_on_submit():
+        return form.errors, 400
+
+    new_channel = Channel(
+        workspace_id = 1,
+        creator_id = current_user.id,
+        name = form.name.data,
+        description = form.description.data,
+        private = form.private.data
+    )
+
+    db.session.add(new_channel)
+    db.session.commit()
+    db.session.refresh(new_channel)
+
+    print(new_channel.to_dict())
+    return new_channel.to_dict(), 201
 
 @channels.put('/<int:id>')
 @login_required
