@@ -25,19 +25,22 @@ function ChannelForm() {
             { pageNum === 1 ?
                     <label>
                         Choose a channel name
+                        <div className="hash">#</div>
                         <input 
                             type="text"
+                            className="channel-name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="# your-channel-name-here"
+                            placeholder="your-channel-name-here"
                             required
                         />
                     </label>
                 : 
                     <label>
                         Enter a description for your channel
-                        <input 
+                        <textarea
                             type="text"
+                            className="channel-description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="description here"
