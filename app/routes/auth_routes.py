@@ -14,7 +14,9 @@ def authenticate():
     """
     if current_user.is_authenticated:
         return current_user.to_dict()
-    return {'errors': {'message': 'Unauthorized'}}, 401
+    
+    # If user not logged in still send 200 so we don't get red console message
+    return {'errors': {'message': 'Unauthorized'}}, 200
 
 
 @auth.route('/login', methods=['POST'])
