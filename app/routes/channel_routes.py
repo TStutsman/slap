@@ -18,6 +18,26 @@ def get_user_channels():
         "allIds": all_ids
     }
 
+@channels.get('/<int:id>/messages')
+@login_required
+def get_channel_messages(id):
+    """
+    Returns all messages for a channel if the user can view the channel
+    """
+    channel = Channel.query.filter_by(id = id).first()
+
+    # Check if the user has access to the channel
+    if channel not in current_user.channels:
+        return {'errors' : {'message': 'Unauthorized'}}, 401
+
+    # return dict and list for normalized redux state shape
+    by_id = { message.id: message.to_dict() for message in channel.messages }
+    all_ids = [ message.id for message in channel.messages ]
+    return { 
+        "byId": by_id, 
+        "allIds": all_ids
+    }
+
 @channels.post('/')
 @login_required
 def create_new_channel():
