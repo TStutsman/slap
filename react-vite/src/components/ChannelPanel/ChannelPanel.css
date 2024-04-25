@@ -21,7 +21,3 @@
     border: 1px solid var(--grey);
     border-radius: 25px;
 }
-
-#message-feed {
-    padding: 0 30px;
-}

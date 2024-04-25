@@ -3,6 +3,7 @@ import { useChannel } from '../../context/Channel';
 import './ChannelPanel.css'
 import { useEffect } from 'react';
 import { getChannelMessagesThunk } from '../../redux/messages';
+import Message from '../Message/Message';
 
 function ChannelPanel() {
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function ChannelPanel() {
             </div>
             <div id='message-feed'>
                 { messages.byId ? Object.entries(messages.byId).map(([id, message]) => (
-                    <p key={id}>{users.byId?.[message.authorId].firstName}: {message.content}</p>
+                    <Message key={id} user={users.byId?.[message.authorId]} message={message}/>
                 ))
                 :
                     <p>No messages yet...</p>

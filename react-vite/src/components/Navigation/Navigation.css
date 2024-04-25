@@ -3,7 +3,7 @@ nav {
   flex-direction: column;
 
   height: 100%;
-  width: 280px;
+  min-width: 280px;
 
   padding: 12px;
 
