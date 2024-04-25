@@ -18,17 +18,8 @@ nav a {
   text-decoration: none;
 }
 
-#channel-list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-#channel-list a {
-  margin-bottom: 5px;
-}
-
 .list-controls {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
