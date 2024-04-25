@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, session, redirect
+from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -25,6 +26,13 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+
+# Adds socket support to app instance
+socketio = SocketIO(app)
+# Starts the app with socketio support
+if __name__ == '__main__':
+    print('success')
+    socketio.run(app)
 
 # all urls match without redirect for /route/ and /route
 # important for @login required
