@@ -26,6 +26,7 @@ class Channel(db.Model):
             'creatorId': self.creator_id,
             'name': self.name,
             'description': self.description,
-            'private': self.private,
-            'createdAt': self.created_at
+            'private': bool(self.private),
+            'createdAt': self.created_at,
+            'numUsers': len(self.users)
         }

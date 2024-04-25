@@ -13,6 +13,8 @@ function DMList() {
         dispatch(getAllUsersThunk());
     }, [dispatch]);
 
+    if(!users.byId) return null;
+
     return (
         <div id="dm-list">
             <div className='list-controls no-select'>
