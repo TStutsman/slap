@@ -1,0 +1,27 @@
+#channel-panel {
+    width: auto;
+
+    color: #fff;
+}
+
+#channel-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 30px;
+
+    border-top: 1px ridge;
+    border-bottom: 1px ridge;
+    border-color: var(--grey);
+}
+
+#channel-details p {
+    padding: 5px 10px;
+    border: 1px solid var(--grey);
+    border-radius: 25px;
+}
+
+#message-feed {
+    padding: 0 30px;
+}
