@@ -28,6 +28,7 @@ function ChannelList() {
                         <OpenModalButton 
                             buttonText="Create"
                             modalComponent={<ChannelForm />}
+                            onButtonClick={() => setDropdownOpen(false)}
                         />
                     </div>
                 }

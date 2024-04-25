@@ -38,11 +38,11 @@ def create_new_channel():
         private = form.private.data
     )
 
-    db.session.add(new_channel)
-    db.session.commit()
-    db.session.refresh(new_channel)
+    # adds the channel to 'channels' and to 'user_channels'
+    current_user.channels.append(new_channel)
 
-    print(new_channel.to_dict())
+    db.session.commit()
+
     return new_channel.to_dict(), 201
 
 @channels.put('/<int:id>')
