@@ -1,5 +1,5 @@
 import { FaCaretDown } from "react-icons/fa6";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllChannelsThunk } from "../../redux/channels";
 import OpenModalButton from '../OpenModalButton';
@@ -13,7 +13,7 @@ function ChannelList() {
     const channels = useSelector(state => state.channels)
     const [showChannels, setShowChannels] = useState(true);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
+    
     useEffect(() => {
         dispatch(getAllChannelsThunk());
     }, [dispatch]);
