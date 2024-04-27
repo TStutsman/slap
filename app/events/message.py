@@ -8,6 +8,10 @@ from flask import session
 def handle_connection():
     print('Connected!', current_user, session.keys())
 
+@socketio.on('disconnect')
+def handle_disconnection():
+    print('Disconnected!', current_user, session.keys())
+
 @socketio.on('load_messages')
 def send_message_history(channel_id):
     messages = Message.query.filter_by(channel_id=channel_id).all()

@@ -35,7 +35,13 @@ function ChannelList() {
                 }
             </div>
             { showChannels && channels.allIds.map(id => (
-            <div key={id} className={"no-select channel-list-item" + (channelId === id ? " selected" : "")} onClick={() => setChannelId(id)}>{channels.byId[id].name}</div>
+            <div 
+                key={id} 
+                className={"no-select channel-list-item" + (channelId === id ? " selected" : "")} 
+                onClick={() => setChannelId(id)}
+            >
+                {channels.byId[id].name}
+            </div>
             ))}
         </div>
     );

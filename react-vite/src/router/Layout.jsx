@@ -25,18 +25,18 @@ export default function Layout() {
   return (
     <>
     { isLoaded ?
-      <ModalProvider>
-        { !loggedIn ? 
-          <Landing /> : 
-          <>
-            <ChannelProvider>
-              <Navigation />
-              { isLoaded && <Outlet /> }
-            </ChannelProvider>
-          </>
-        }
-        <Modal /> 
-      </ModalProvider> :
+      <ChannelProvider>
+        <ModalProvider>
+          { !loggedIn ? 
+            <Landing /> : 
+            <>
+                <Navigation />
+                { isLoaded && <Outlet /> }
+            </>
+          }
+          <Modal /> 
+        </ModalProvider>
+      </ChannelProvider> :
       <Loading />
     }
     </>
