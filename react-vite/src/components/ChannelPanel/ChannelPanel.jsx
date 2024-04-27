@@ -1,57 +1,64 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useChannel } from '../../context/Channel';
 import './ChannelPanel.css'
-import { useState, useEffect } from 'react';
-// import { addMessages, getChannelMessagesThunk } from '../../redux/messages';
+import { useState, useEffect, useRef } from 'react';
 import Message from '../Message/Message';
-import { io } from 'socket.io-client';
-const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8000';
-const socket = io(URL, { autoConnect: false });
+import MessageInput from '../MessageInput';
+import { socket } from '../../socket';
 
 function ChannelPanel() {
-    const dispatch = useDispatch();
     const { channelId } = useChannel();
+    const sessionUser = useSelector(state => state.session.user);
     const users = useSelector(state => state.users);
     const channels = useSelector(state => state.channels);
-    // const messages = useSelector(state => state.messages);
 
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState("");
+    
+    const channelPanel = useRef(null);
 
     useEffect(() => {
-        socket.connect();
+        if(sessionUser !== null) {
+            socket.connect();
+            socket.emit('load_messages', channelId);
+        }
 
         return () => {
             socket.disconnect();
         }
-    }, [])
+    }, [sessionUser, channelId]);
 
     useEffect(() => {
-        // dispatch(getChannelMessagesThunk(channelId));
         function onConnect() {
             setIsConnected(true);
-            console.log('Connected!')
+            console.log('Socket Connected!')
         }
-
+    
+        function loadMessages(messages) {
+            setMessages(messages);
+        }
+    
         function onMessageBroadcast(message) {
             console.log("Recieved", message)
-            setMessages([...messages, message]);
+            setMessages(previous => [...previous, message]);
         }
 
         socket.on('connect', onConnect);
+        socket.on('load_messages', loadMessages);
         socket.on('message_broadcast', onMessageBroadcast);
 
         return () => {
             socket.off('connect', onConnect);
+            socket.off('load_messages', loadMessages);
             socket.off('message_broadcast', onMessageBroadcast)
         }
-    }, [dispatch, channelId, messages]);
+    }, [channelId]);
 
-    const handleNewMessage = (e) => {
-        e.preventDefault();
-        socket.emit('new_message', {channelId, content: newMessage});
-    }
+    useEffect(() => {
+        if(!channelPanel.current) return;
+        channelPanel.current.scrollTop = channelPanel.current.scrollHeight;
+    }, [messages]);
+
 
     // Wait for dispatch to load
     if(!channels.byId) return null;
@@ -60,7 +67,7 @@ function ChannelPanel() {
     const currentChannel = channels.byId[channelId];
 
     return (
-        <div id="channel-panel">
+        <div id="channel-panel" ref={channelPanel}>
             <div id='channel-details'>
                 <h3>{currentChannel.name}</h3>
                 <p>{currentChannel.numUsers} members</p>
@@ -74,14 +81,7 @@ function ChannelPanel() {
                 }
             </div>
 
-            <form onSubmit={handleNewMessage}>
-                <input 
-                    type="text"
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                />
-                <button>Submit</button>
-            </form>
+            <MessageInput channelId={channelId} sessionUser={sessionUser} />
         </div>
     )
 }

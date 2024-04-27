@@ -11,7 +11,9 @@ const addUsers = users => ({
 export const getAllUsersThunk = () => async dispatch => {
     const data = await api.get('/users');
 
-    console.log(data)
+    if(data.server) {
+        return data;
+    }
 
     dispatch(addUsers(data));
 }

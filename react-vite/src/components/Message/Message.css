@@ -19,6 +19,7 @@
 
 .message .content {
     width: 100%;
+    white-space: pre-wrap;
 }
 
 .message h6 {

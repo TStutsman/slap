@@ -19,10 +19,7 @@ export default function Layout() {
   }, [dispatch]);
 
   useEffect(() => {
-    if(sessionUser) {
-      console.log(sessionUser)
-      setLoggedIn(true);
-    }
+    setLoggedIn(!!sessionUser)
   }, [sessionUser])
 
   return (

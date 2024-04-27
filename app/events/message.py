@@ -1,21 +1,28 @@
 from .socket import socketio
-from flask_socketio import emit
+from flask_socketio import emit, send
 from app.models import db, Message
 from flask_login import current_user
+from flask import session
 
 @socketio.on('connect')
 def handle_connection():
-    print('Connected!', current_user)
+    print('Connected!', current_user, session.keys())
+
+@socketio.on('load_messages')
+def send_message_history(channel_id):
+    messages = Message.query.filter_by(channel_id=channel_id).all()
+    message_history = [ message.to_dict() for message in sorted(messages, key=lambda message: message.updated_at) ]
+    emit('load_messages', message_history)
 
 @socketio.on('new_message')
 def new_message(message):
     new_message = Message(
-        author_id = current_user.id,
+        author_id = message['authorId'],
         channel_id = message['channelId'],
         content = message['content']
     )
 
     db.session.add(new_message)
-    db.commit()
-    print(message)
-    emit('message_broadcast', new_message)
+    db.session.commit()
+    print(new_message.to_dict())
+    emit('message_broadcast', new_message.to_dict(), broadcast=True)

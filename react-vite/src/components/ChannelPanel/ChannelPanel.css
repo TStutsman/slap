@@ -1,15 +1,25 @@
 #channel-panel {
     width: auto;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: scroll;
 
     color: #fff;
 }
 
 #channel-details {
+    position: sticky;
+    top: 0;
+
+    width: inherit;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     padding: 0 30px;
+
+    background-color: var(--black);
 
     border-top: 1px ridge;
     border-bottom: 1px ridge;
@@ -20,4 +30,8 @@
     padding: 5px 10px;
     border: 1px solid var(--grey);
     border-radius: 25px;
+}
+
+#message-feed {
+    overflow: scroll;
 }
