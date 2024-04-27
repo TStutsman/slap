@@ -8,8 +8,11 @@
 
 .message-form.edit-message {
     position: relative;
-    width: 100%;
-    height: 400px;
+    width: 70vw;
+}
+
+.edit-header {
+    padding-left: 30px;
 }
 
 .input-area {

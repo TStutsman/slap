@@ -30,3 +30,16 @@ def new_message(message):
     db.session.commit()
     print(new_message.to_dict())
     emit('message_broadcast', new_message.to_dict(), broadcast=True)
+
+@socketio.on('edit_message')
+def update_message(message):
+    updated_message = Message.query.get(message['id'])
+
+    if updated_message == None:
+        print('Couldnt find the message')
+
+    updated_message.content = message['content']
+
+    db.session.commit()
+    print(updated_message.to_dict())
+    emit('update_broadcast', updated_message.to_dict(), broadcast=True)

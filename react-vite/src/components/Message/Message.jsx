@@ -36,7 +36,7 @@ function Message({ user, message }) {
                     <div id="message-option-dd">
                         <OpenModalButton 
                             buttonText="Edit Message"
-                            modalComponent={<MessageInput edit={true}/>}
+                            modalComponent={<MessageInput edit={message}/>}
                             onButtonClick={() => setDropdownOpen(false)}
                         />
                         <OpenModalButton 
