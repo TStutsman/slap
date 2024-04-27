@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { socket } from '../../socket';
 import './MessageInput.css';
-import { useSelector } from 'react-redux';
 import { IoPaperPlaneSharp } from "react-icons/io5";
+import { FaPlus } from 'react-icons/fa6'
 
-function MessageInput({ channelId, sessionUser }) {
+function MessageInput({ channelId, channelName, sessionUser }) {
     const [newMessage, setNewMessage] = useState("");
 
     const handleNewMessage = (e) => {
@@ -20,14 +20,25 @@ function MessageInput({ channelId, sessionUser }) {
     }
 
     return (
-        <form id='new-message-form'>
-            <textarea
-                value={newMessage}
-                onKeyDown={checkEnter}
-                onChange={(e) => setNewMessage(e.target.value)}
-            />
+        <form id='new-message-form' encType='multipart/form-data' onSubmit={handleNewMessage}>
+            <div className='input-area'>
+                <textarea
+                    value={newMessage}
+                    onKeyDown={checkEnter}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder={`Message # ${channelName}`}
+                />
+                <label>
+                    <div className='add-file-btn' onClick={() => alert('File sharing coming soon!')}>
+                        <FaPlus size={15}/>
+                    </div>
+                    {/* <input type="file" style={{display: 'none'}}/> */}
+                </label>
+                <button className={'send-btn'} onClick={handleNewMessage} disabled={!newMessage.length}>
+                    <IoPaperPlaneSharp size={20}/>
+                </button>
+            </div>
             <input type="submit" style={{display: 'none'}}/>
-            <IoPaperPlaneSharp size={24} onClick={handleNewMessage}/>
         </form>
     );
 }

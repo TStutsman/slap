@@ -15,7 +15,7 @@ function ChannelPanel() {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [messages, setMessages] = useState([]);
     
-    const channelPanel = useRef(null);
+    const messageFeed = useRef(null);
 
     useEffect(() => {
         if(sessionUser !== null) {
@@ -55,8 +55,8 @@ function ChannelPanel() {
     }, [channelId]);
 
     useEffect(() => {
-        if(!channelPanel.current) return;
-        channelPanel.current.scrollTop = channelPanel.current.scrollHeight;
+        if(!messageFeed.current) return;
+        messageFeed.current.scrollTop = messageFeed.current.scrollHeight;
     }, [messages]);
 
 
@@ -67,12 +67,12 @@ function ChannelPanel() {
     const currentChannel = channels.byId[channelId];
 
     return (
-        <div id="channel-panel" ref={channelPanel}>
+        <div id="channel-panel">
             <div id='channel-details'>
                 <h3>{currentChannel.name}</h3>
                 <p>{currentChannel.numUsers} members</p>
             </div>
-            <div id='message-feed'>
+            <div id='message-feed' ref={messageFeed}>
                 { messages ? messages.map((message) => (
                     <Message key={message.id} user={users.byId?.[message.authorId]} message={message}/>
                 ))
@@ -81,7 +81,7 @@ function ChannelPanel() {
                 }
             </div>
 
-            <MessageInput channelId={channelId} sessionUser={sessionUser} />
+            <MessageInput channelId={channelId} channelName={currentChannel.name} sessionUser={sessionUser} />
         </div>
     )
 }
