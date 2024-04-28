@@ -15,8 +15,9 @@ def handle_disconnection():
 @socketio.on('load_messages')
 def send_message_history(channel_id):
     messages = Message.query.filter_by(channel_id=channel_id).all()
-    message_history = [ message.to_dict() for message in sorted(messages, key=lambda message: message.updated_at) ]
-    emit('load_messages', message_history)
+    by_id = { message.id:message.to_dict() for message in messages }
+    ordered_ids = [ message.id for message in messages ]
+    emit('load_messages', { 'byId': by_id, 'order': ordered_ids })
 
 @socketio.on('new_message')
 def new_message(message):
@@ -43,3 +44,14 @@ def update_message(message):
     db.session.commit()
     print(updated_message.to_dict())
     emit('update_broadcast', updated_message.to_dict(), broadcast=True)
+
+@socketio.on('delete_message')
+def delete_message(messageId):
+    to_delete = Message.query.get(messageId)
+
+    if delete_message == None:
+        print('Couldnt find the message')
+
+    db.session.delete(to_delete)
+    db.session.commit()
+    emit('delete_broadcast', messageId, broadcast=True)

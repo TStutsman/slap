@@ -5,10 +5,12 @@ import { IoPaperPlaneSharp } from "react-icons/io5";
 import { FaPlus } from 'react-icons/fa6'
 import { useChannel } from '../../context/Channel';
 import { useSelector } from 'react-redux';
+import { useModal } from '../../context/Modal';
 
 function MessageInput({ sessionUser, edit = null }) {
     // Context
     const { channelId } = useChannel();
+    const { closeModal } = useModal();
 
     // Redux Store
     const channels = useSelector(state => state.channels);
@@ -32,6 +34,7 @@ function MessageInput({ sessionUser, edit = null }) {
 
         socket.emit(emitEvent, message);
         if(!edit) setNewMessage("");
+        else closeModal();
     }
 
     // Listens for the 'enter' key for textarea submission
