@@ -50,7 +50,7 @@ function Message({ user, message }) {
                         />
                         <OpenModalButton 
                             buttonText="Delete Message"
-                            modalComponent={<ConfirmDelete messageId={message.id}/>}
+                            modalComponent={<ConfirmDelete type='message' resourceId={message.id}/>}
                             onButtonClick={() => setDropdownOpen(false)}
                         />
                     </div>

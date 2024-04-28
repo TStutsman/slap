@@ -1,55 +1,39 @@
 #channel-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-    margin-bottom: 10px;
-  }
-  
-  #channel-list a {
-    margin-bottom: 5px;
-  }
+  margin-bottom: 10px;
+}
 
-  #channel-option-dd {
-    position: absolute;
-    top: 40px;
-    left: 30px;
-  }
+#channel-list a {
+  margin-bottom: 5px;
+}
 
-  #channel-option-dd button {
-    width: 200px;
-    padding: 10px 15px;
+#channel-option-dd {
+  position: absolute;
+  top: 20px;
+  left: 30px;
 
-    border: 1px ridge #555;
-    border-radius: 4px;
+  z-index: 1;
+}
 
-    font-size: 14px;
-    text-align: left;
+#channel-option-dd button {
+  width: 200px;
+  padding: 10px 15px;
 
-    color: #d9d9d9;
-    background-color: var(--black);
+  border: 1px ridge #555;
+  border-radius: 4px;
 
-    transition: background-color .2s ease;
-  }
+  font-size: 14px;
+  text-align: left;
 
-  #channel-option-dd button:hover {
-    background-color: var(--blue);
-  }
+  color: #d9d9d9;
+  background-color: var(--black);
 
-  .channel-list-item {
-    margin-bottom: 5px;
-    
-    font-size: 15px;
-    font-weight: 200;
+  transition: background-color .2s ease;
+}
 
-    cursor: pointer;
-  }
-
-  .channel-list-item.selected {
-    font-weight: 600;
-  }
-
-  .channel-list-item::before {
-    content: '#';
-    margin-right: 10px;
-  }
+#channel-option-dd button:hover {
+  background-color: var(--blue);
+}

@@ -1,26 +1,33 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useModal } from "../../context/Modal";
-import { createNewChannelThunk } from '../../redux/channels';
+import { createNewChannelThunk, editChannelThunk } from '../../redux/channels';
 import './ChannelForm.css'
 
-function ChannelForm() {
+function ChannelForm({ edit=null }) {
     const dispatch = useDispatch();
-    const [pageNum, setPageNum] = useState(1);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+
+    // Context
     const { closeModal } = useModal();
+
+    // React
+    const [pageNum, setPageNum] = useState(1);
+    const [name, setName] = useState(edit?.name || "");
+    const [description, setDescription] = useState(edit?.description || "");
+
+    const thunk = edit ? editChannelThunk : createNewChannelThunk;
 
     const handleSubmit = e => {
         e.preventDefault();
         
         const newChannel = {
+            ...edit,
             name,
             description,
             private: false
         }
 
-        dispatch(createNewChannelThunk(newChannel));
+        dispatch(thunk(newChannel));
 
         closeModal();
     }

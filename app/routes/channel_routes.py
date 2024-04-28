@@ -72,12 +72,38 @@ def edit_channel(id):
     Applies edits to a Channel based off the input from the user through ChannelForm and the channel id
     passed in the url
     """
-    pass
+    to_update = Channel.query.get(id)
+
+    if to_update == None:
+        return {'message': "Couldn't find selected channel"}, 404
+    
+    form = ChannelForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not form.validate_on_submit():
+        return form.errors, 400
+    
+    to_update.name = form.name.data
+    to_update.description = form.description.data
+    to_update.private = form.private.data
+
+    db.session.commit()
+    return to_update.to_dict()
 
 @channels.delete('/<int:id>')
 @login_required
 def remove_channel(id):
     """
     Removes a Channel based off the channel id passed in the url
+    Sends the deleted channel on success
     """
-    pass
+    to_delete = Channel.query.get(id)
+    deleted = to_delete.to_dict()
+
+    if to_delete == None:
+        return {'message': "Couldn't find selected channel"}, 404
+    
+    db.session.delete(to_delete)
+    db.session.commit()
+
+    return deleted

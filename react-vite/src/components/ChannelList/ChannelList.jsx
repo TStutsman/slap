@@ -5,12 +5,14 @@ import { getAllChannelsThunk } from "../../redux/channels";
 import OpenModalButton from '../OpenModalButton';
 import ChannelForm from "../ChannelForm";
 import './ChannelList.css';
-import { useChannel } from "../../context/Channel";
+import ChannelListItem from "../ChannelListItem/ChannelListItem";
 
 function ChannelList() {
+    // Redux
     const dispatch = useDispatch();
-    const { channelId, setChannelId } = useChannel();
     const channels = useSelector(state => state.channels)
+
+    // React
     const [showChannels, setShowChannels] = useState(true);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     
@@ -35,13 +37,7 @@ function ChannelList() {
                 }
             </div>
             { showChannels && channels.allIds.map(id => (
-            <div 
-                key={id} 
-                className={"no-select channel-list-item" + (channelId === id ? " selected" : "")} 
-                onClick={() => setChannelId(id)}
-            >
-                {channels.byId[id].name}
-            </div>
+                <ChannelListItem key={id} channel={channels.byId[id]} />
             ))}
         </div>
     );

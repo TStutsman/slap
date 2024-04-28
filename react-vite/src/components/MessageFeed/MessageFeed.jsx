@@ -18,17 +18,6 @@ function MessageFeed({ channelId }) {
 
     // ============ SIDE EFFECTS ===============
 
-    // Opens the socket after user is logged in
-    useEffect(() => {
-        if(sessionUser !== null) {
-            socket.connect();
-        }
-
-        return () => {
-            socket.disconnect();
-        }
-    }, [sessionUser]);
-
     // Joins the channel when the id changes
     // Joining a channel allows the user to listen
     // for messages posted in that channel
