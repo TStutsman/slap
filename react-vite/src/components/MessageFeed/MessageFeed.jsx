@@ -29,10 +29,16 @@ function MessageFeed({ channelId }) {
         }
     }, [sessionUser]);
 
-    // Requests the channel messages from the server
-    // Whenever the channel changes
+    // Joins the channel when the id changes
+    // Joining a channel allows the user to listen
+    // for messages posted in that channel
+    // Leaves the channel when joining a new one
     useEffect(() => {
-        socket.emit('load_messages', channelId);
+        socket.emit('join_channel', channelId);
+
+        return () => {
+            socket.emit('leave_channel', channelId);
+        }
     }, [channelId]);
 
     // Definitions for events to listen to from the server
@@ -61,13 +67,16 @@ function MessageFeed({ channelId }) {
         // Runs when another user posts a new message
         // and the server broadcasts it to all listeners
         function onMessageBroadcast(message) {
-            setMessages(previous => [...previous, message]);
+            setMessages(previous => ({ ...previous, [message.id]: message }));
+            setMessageOrder(previous => [...previous, message.id]);
         }
 
+        // Runs when any user updates a message
         function updateMessage(message) {
-            setMessages(previous => ({ ...previous, [message.id]: message}))
+            setMessages(previous => ({ ...previous, [message.id]: message }))
         }
 
+        // Runs when any user deletes a message
         function deleteMessage(messageId) {
             setMessageOrder(previous => {
                 const i = previous.indexOf(messageId);
