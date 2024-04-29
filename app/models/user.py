@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20))
     profile_photo_url = db.Column(db.String(255))
 
-    workspaces = db.relationship('Workspace', secondary='user_workspaces', back_populates='users')
+    # workspaces = db.relationship('Workspace', secondary='user_workspaces', back_populates='users')
     channels = db.relationship('Channel', secondary='user_channels', back_populates='users')
     messages = db.relationship('Message', back_populates='author')
     reactions = db.relationship('Reaction', secondary='user_reactions', back_populates='users')

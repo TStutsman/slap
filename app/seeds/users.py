@@ -4,61 +4,66 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', 
-        email='demo@aa.io', 
-        password='password'
-    )
-    landon = User(
-        username='lbraurson', 
-        email='lbraurson@aa.io', 
-        password='module1',
-        first_name='Landon',
-        last_name="Braurson",
-        status_emoji='🎡',
-        status_string='Active',
-        theme='dark',
-        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/spiderman.jpeg'
-    )
-    wane = User(
-        username='wshilkey',
-        email='wshilkey@aa.io',
-        password='module2',
-        first_name='Wane',
-        last_name="Shilkey",
-        status_emoji='🐶',
-        status_string='Hip-Hop Adjacent',
-        theme='dark',
-        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hiphop90.png'
-    )
-    otieffrey = User(
-        username='ogeono',
-        email='ogeono@aa.io',
-        password='module3',
-        first_name='Otieffrey',
-        last_name="Ogeono",
-        status_emoji='🖋️',
-        status_string='Drawing an API',
-        theme='dark',
-        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/gamerdog.jpeg'
-    )
-    shanner = User(
-        username='staw',
-        email='staw@aa.io',
-        password='module3',
-        first_name='Shanner',
-        last_name="Taw",
-        status_emoji='🤓',
-        status_string='At my other job',
-        theme='dark',
-        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hacker.png'
-    )
+    users = [
+        User(
+            username='Demo', 
+            email='demo@aa.io', 
+            password='password',
+            first_name='Demo',
+            last_name ='User',
+            status_emoji='✅',
+            status_string='Active',
+            theme='dark'
+        ),
+        User(
+            username='lbraurson', 
+            email='lbraurson@aa.io', 
+            password='module1',
+            first_name='Landon',
+            last_name="Braurson",
+            status_emoji='🎡',
+            status_string='Active',
+            theme='dark',
+            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/spiderman.jpeg'
+        ),
+        User(
+            username='wshilkey',
+            email='wshilkey@aa.io',
+            password='module2',
+            first_name='Wane',
+            last_name="Shilkey",
+            status_emoji='🐶',
+            status_string='Hip-Hop Adjacent',
+            theme='dark',
+            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hiphop90.png'
+        ),
+        User(
+            username='ogeono',
+            email='ogeono@aa.io',
+            password='module3',
+            first_name='Otieffrey',
+            last_name="Ogeono",
+            status_emoji='🖋️',
+            status_string='Drawing an API',
+            theme='dark',
+            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/gamerdog.jpeg'
+        ),
+        User(
+            username='staw',
+            email='staw@aa.io',
+            password='module3',
+            first_name='Shanner',
+            last_name="Taw",
+            status_emoji='🤓',
+            status_string='At my other job',
+            theme='dark',
+            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hacker.png'
+        )
+    ]
 
-    db.session.add(demo)
-    db.session.add(landon)
-    db.session.add(wane)
-    db.session.add(otieffrey)
-    db.session.add(shanner)
+    for user in users:
+        db.session.add(user)
+        
     db.session.commit()
 
 
