@@ -1,0 +1,46 @@
+.channel-list-item {
+    position: relative;
+    margin-bottom: 5px;
+
+    font-size: 15px;
+    font-weight: 200;
+
+    cursor: pointer;
+}
+
+.channel-list-item.selected {
+    font-weight: 600;
+}
+
+.channel-list-item::before {
+    content: '#';
+    margin-right: 10px;
+}
+
+.channel-options-dd {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+
+    z-index: 1;
+}
+
+.channel-options-dd button {
+    width: 200px;
+    padding: 10px 15px;
+  
+    border: 1px ridge #555;
+    border-radius: 4px;
+  
+    font-size: 14px;
+    text-align: left;
+  
+    color: #d9d9d9;
+    background-color: var(--black);
+  
+    transition: background-color .2s ease;
+}
+
+.channel-options-dd button:hover {
+    background-color: var(--blue);
+  }

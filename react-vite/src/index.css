@@ -1,1 +1,53 @@
 /* TODO: Add sitewide styles */
+:root {
+    --blue: #2176ae;
+    --blue-hover: #358cc6;
+    --dk-green: #2e933c;
+    --dk-green-hover: #36a445;
+    --lt-green: #81c14b;
+    --lt-green-hover: #96db5e;
+    --beige: #ecba82;
+    --black: #2f2f2f;
+    --grey: #686868;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-VariableFont_wght.ttf') format(truetype) tech(variations),
+        url('/fonts/PlusJakartaSans-VariableFont_wght.ttf') format("truetype-variations");
+    font-weight: 100 800;
+}
+
+html {
+    background-color: var(--black);
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+
+    font-family: 'Plus Jakarta Sans';
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    background-color: var(--black);
+}
+
+button {
+    cursor: pointer;
+}
+
+.no-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

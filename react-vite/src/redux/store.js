@@ -6,19 +6,25 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import channelsReducer from "./channels";
+import usersReducer from "./users";
+import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  channels: channelsReducer,
+  users: usersReducer,
+  messages: messagesReducer
 });
 
 let enhancer;
 if (import.meta.env.MODE === "production") {
   enhancer = applyMiddleware(thunk);
 } else {
-  const logger = (await import("redux-logger")).default;
+  // const logger = (await import("redux-logger")).default;
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  enhancer = composeEnhancers(applyMiddleware(thunk, logger));
+  enhancer = composeEnhancers(applyMiddleware(thunk/** , logger*/));
 }
 
 const configureStore = (preloadedState) => {

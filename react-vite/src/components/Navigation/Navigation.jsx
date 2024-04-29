@@ -1,18 +1,21 @@
-import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
+import ChannelList from "../ChannelList";
+import DMList from "../DMList";
 import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
+    <nav>
+      <div id='profile-area'>
         <ProfileButton />
-      </li>
-    </ul>
+        <div id='profile-text'>
+          <h3>Demo User</h3>
+          <p>Status status status</p>
+        </div>
+      </div>
+      <ChannelList />
+      <DMList />
+    </nav>
   );
 }
 

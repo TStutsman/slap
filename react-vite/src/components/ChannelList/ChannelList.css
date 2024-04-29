@@ -1,0 +1,39 @@
+#channel-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-bottom: 10px;
+}
+
+#channel-list a {
+  margin-bottom: 5px;
+}
+
+#channel-option-dd {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+
+  z-index: 1;
+}
+
+#channel-option-dd button {
+  width: 200px;
+  padding: 10px 15px;
+
+  border: 1px ridge #555;
+  border-radius: 4px;
+
+  font-size: 14px;
+  text-align: left;
+
+  color: #d9d9d9;
+  background-color: var(--black);
+
+  transition: background-color .2s ease;
+}
+
+#channel-option-dd button:hover {
+  background-color: var(--blue);
+}
