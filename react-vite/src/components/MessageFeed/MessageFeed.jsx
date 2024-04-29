@@ -6,7 +6,6 @@ import Message from "../Message";
 
 function MessageFeed({ channelId }) {
     // Redux Store
-    const sessionUser = useSelector(state => state.session.user);
     const users = useSelector(state => state.users);
 
     // React
