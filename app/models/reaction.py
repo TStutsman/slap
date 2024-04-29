@@ -13,7 +13,7 @@ class Reaction(db.Model):
 
     message = db.relationship('Message', back_populates='reactions')
 
-    users = db.relationship('User', secondary='user_reactions', back_populates='reactions')
+    users = db.relationship('User', secondary=add_prefix_for_prod('user_reactions'), back_populates='reactions')
 
     def to_dict(self):
         return {
