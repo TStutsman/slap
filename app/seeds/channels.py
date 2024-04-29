@@ -2,7 +2,7 @@ from app.models import db, Channel, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_channels():
-    channels = {
+    channels = [
        Channel(
             workspace_id = 1,
             creator_id = 2,
@@ -33,7 +33,7 @@ def seed_channels():
             name = '2023-11-27-online',
             description = ""
         ),
-    }
+    ]
 
     for channel in channels:
         db.session.add(channel)

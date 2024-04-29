@@ -11,7 +11,7 @@ class Workspace(db.Model):
     icon_url = db.Column(db.String(255), nullable=False)
 
     channels = db.relationship('Channel', back_populates='workspace')
-    users = db.relationship('User', secondary='user_workspaces', back_populates='workspaces')
+    # users = db.relationship('User', secondary='user_workspaces', back_populates='workspaces')
 
     def to_dict(self):
         return {

@@ -2,7 +2,7 @@ from app.models import db, Message, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_messages():
-    messages = {
+    messages = [
         Message(
             author_id=2,
             channel_id=1,
@@ -23,7 +23,7 @@ def seed_messages():
             channel_id=1,
             content='Otieff is the real villian in this module',
         )
-    }
+    ]
 
     for message in messages:
         db.session.add(message)
