@@ -47,7 +47,7 @@ function ChannelListItem({ channel, joined }) {
         >
             {channel.name}
             {channel.creatorId === sessionUser.id && channelId === channel.id &&
-                <button className="options-control" onClick={toggleDropdown}>...</button>
+                <button className="options-control channel-options" onClick={toggleDropdown}>...</button>
             }
             { dropdownOpen &&
                 <div className="channel-options-dd" ref={ddRef}>
