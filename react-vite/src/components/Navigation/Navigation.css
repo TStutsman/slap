@@ -64,8 +64,17 @@ nav a {
 #profile-area {
   position: relative;
   display: flex;
+  align-items: center;
 
-  height: 100px;
+  margin-bottom: 40px;
+
+  border-radius: 4px;
+
+  transition: background-color .3s ease;
+}
+
+#profile-area:hover {
+  background-color: var(--black-2);
 }
 
 #user-profile {
@@ -102,6 +111,29 @@ nav a {
 
 .profile-dropdown {
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
   right: 0;
+
+  background-color: transparent;
+}
+
+.profile-dropdown > button {
+  padding: 10px 20px;
+
+  border: 1px solid var(--black);
+  border-radius: 4px;
+
+  color: var(--white);
+  background-color: var(--blue);
+
+  transition: background-color .2s ease;
+}
+
+.profile-dropdown > button:hover {
+  background-color: var(--blue-hover);
+}
+
+.profile-caret {
+  position: absolute;
+  right: 10px;
 }

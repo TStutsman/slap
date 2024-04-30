@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
+import { FaAngleDown } from 'react-icons/fa6';
 
 function Profile() {
   const dispatch = useDispatch();
@@ -45,8 +46,8 @@ function Profile() {
   };
 
   return (
-    <div id='profile-area'>
-      <div id='user-profile' onClick={toggleMenu}>
+    <div id='profile-area' onClick={toggleMenu}>
+      <div id='user-profile'>
         <img src={ user?.profilePhotoUrl || defaultPhoto } alt="profile_default" />
       </div>
       {showMenu && (
@@ -56,8 +57,12 @@ function Profile() {
       )}
 
       <div id='profile-text'>
-        <h3>{user.username}</h3>
-        <p>{user.statusEmoji} {user.statusString}</p>
+        <h3 className="no-select">{user.username}</h3>
+        <p className="no-select">{user.statusEmoji} {user.statusString}</p>
+      </div>
+
+      <div className="profile-caret">
+        <FaAngleDown />
       </div>
     </div>
   );
