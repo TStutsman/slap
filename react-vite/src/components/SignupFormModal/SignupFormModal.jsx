@@ -43,7 +43,6 @@ function SignupFormModal() {
   };
 
   useEffect(() => {
-    console.log(errors);
     if(errors.confirmPassword) {
       if (password == confirmPassword) {
         const newErrors = {...errors};
