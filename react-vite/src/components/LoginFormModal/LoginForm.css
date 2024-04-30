@@ -14,7 +14,7 @@
 .login-modal label {
     font-size: 16px;
     font-weight: 300;
-    color: #d9d9d9;
+    color: var(--white);
 }
 
 .login-modal input {
@@ -38,12 +38,12 @@
 }
 
 .login-modal input:hover {
-    border-color: #d9d9d9;
+    border-color: var(--white);
 }
 
 .login-modal input:focus {
     outline: none;
-    border-color: #d9d9d9;
+    border-color: var(--white);
 }
 
 .login-modal label, .login-modal input, .login-modal button, .login-modal p {
@@ -79,6 +79,6 @@
 }
 
 .login-modal button:disabled {
-    background-color: #d9d9d9;
+    background-color: var(--white);
     color: #a6a6a6;
 }

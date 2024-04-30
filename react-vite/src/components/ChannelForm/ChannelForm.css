@@ -68,12 +68,12 @@
 }
 
 .channel-name:hover, .channel-description:hover {
-    border-color: #d9d9d9;
+    border-color: var(--white);
 }
 
 .channel-name:focus, .channel-description:focus {
     outline: none;
-    border-color: #d9d9d9;
+    border-color: var(--white);
 }
 
 .channel-form-btn {
@@ -87,7 +87,7 @@
     border-radius: 4px;
 
     font-size: 16px;
-    color: #d9d9d9;
+    color: var(--white);
     background-color: var(--blue);
 
     transition: background-color .3s ease;

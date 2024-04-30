@@ -37,7 +37,7 @@ function ChannelList() {
                 }
             </div>
             { showChannels && channels.allIds.map(id => (
-                <ChannelListItem key={id} channel={channels.byId[id]} />
+                <ChannelListItem key={id} channel={channels.byId[id]} joined={channels.joined.has(id)}/>
             ))}
         </div>
     );

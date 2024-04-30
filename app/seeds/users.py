@@ -42,7 +42,7 @@ def seed_users():
             email='ogeono@aa.io',
             password='module3',
             first_name='Otieffrey',
-            last_name="Ogeono",
+            last_name="Geono",
             status_emoji='🖋️',
             status_string='Drawing an API',
             theme='dark',
