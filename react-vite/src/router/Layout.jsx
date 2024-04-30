@@ -12,22 +12,17 @@ export default function Layout() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     dispatch(thunkAuthenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
-  useEffect(() => {
-    setLoggedIn(!!sessionUser)
-  }, [sessionUser])
 
   return (
     <>
     { isLoaded ?
       <ChannelProvider>
         <ModalProvider>
-          { !loggedIn ? 
+          { sessionUser === null ? 
             <Landing /> : 
             <>
                 <Navigation />
