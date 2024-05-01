@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import OpenModalButton from '../OpenModalButton';
 import MessageInput from '../MessageInput';
 import ConfirmDelete from '../ConfirmDelete';
@@ -6,6 +6,8 @@ import './Message.css';
 import { useSelector } from 'react-redux';
 
 function Message({ user, message }) {
+    const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";
+
     // Redux
     const sessionUser = useSelector(state => state.session.user);
 
@@ -13,17 +15,43 @@ function Message({ user, message }) {
     const [hovered, setHovered] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";
-    const author = user ? user : {
+    // Element Reference
+    const dropdownRef = useRef(null);
+
+    // Toggle the logout menu
+    const toggleMenu = (e) => {
+        e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+        setDropdownOpen(!dropdownOpen);
+    };
+
+    // Close dropdown on click anywhere off-menu
+    useEffect(() => {
+        if (!dropdownOpen) return;
+
+        const closeMenu = (e) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+            setDropdownOpen(false);
+        }
+        };
+
+        document.addEventListener("click", closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [dropdownOpen]);
+
+    // Convenient variables
+    const author = user || {
         id: -1,
         firstName: 'unknown',
         lastName: '',
         profilePhotoUrl: defaultPhoto
     }
+    author.displayName = author.firstName + ' ' + author.lastName;
 
-    author.displayName = author.firstName ? author.firstName + ' ' + author.lastName : author.username;
+    // If the author has no profile photo use default
     if(!author.profilePhotoUrl) author.profilePhotoUrl = defaultPhoto;
 
+    // Wait for message to populate before rendering
     if(!message) return null;
 
     return (
@@ -37,12 +65,12 @@ function Message({ user, message }) {
             </div>
             {
                 sessionUser.id === user?.id &&
-                <button className={hovered ? 'message-controls visible' : 'message-controls'} onClick={() => setDropdownOpen(!dropdownOpen)}>
+                <button className={hovered ? 'message-controls visible' : 'message-controls'} onClick={toggleMenu}>
                     ...
                 </button>
             }
             { dropdownOpen &&
-                    <div id="message-option-dd">
+                    <div className="message-option-dd" ref={dropdownRef}>
                         <OpenModalButton 
                             buttonText="Edit Message"
                             modalComponent={<MessageInput sessionUser={sessionUser} edit={message}/>}

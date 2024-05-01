@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask import Blueprint, request
+from flask_login import current_user, login_required
+from app.models import db, User
+from app.forms import ProfileForm
 
 users_routes = Blueprint('users', __name__)
 
@@ -28,3 +29,22 @@ def get_user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@users_routes.put('/current')
+@login_required
+def update_profile():
+    """
+    Update a users profile status, theme, phone, or photo
+    """
+    form = ProfileForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not form.validate_on_submit():
+        return { 'errors': form.errors }, 400
+    
+    current_user.status_string = form.statusString.data
+    current_user.status_emoji = form.statusEmoji.data
+
+    db.session.commit()
+
+    return current_user.to_dict()

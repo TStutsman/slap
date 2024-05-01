@@ -1,10 +1,17 @@
-import { useRef, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useModal } from "../../context/Modal";
+import { deleteChannel } from "../../redux/channels";
 import { socket } from "../../socket";
-
+import ChannelWasDeleted from '../ChannelWasDeleted';
 import Message from "../Message";
 
 function MessageFeed({ channelId }) {
+    const dispatch = useDispatch();
+
+    // Context
+    const { setModalContent } = useModal();
+
     // Redux Store
     const users = useSelector(state => state.users);
 
@@ -79,6 +86,13 @@ function MessageFeed({ channelId }) {
             });
         }
 
+        // Removes the channel if the owner deletes it
+        function removeChannel(channel) {
+            dispatch(deleteChannel(channel));
+
+            setModalContent(<ChannelWasDeleted />);
+        }
+
         // Initialize socket events to listen to
         socket.on('connect', onConnect);
         socket.on('disconnect', onDisconnect);
@@ -86,6 +100,7 @@ function MessageFeed({ channelId }) {
         socket.on('message_broadcast', onMessageBroadcast);
         socket.on('update_broadcast', updateMessage);
         socket.on('delete_broadcast', deleteMessage);
+        socket.on('channel_deleted', removeChannel);
 
         // On component unmount, remove socket event listeners
         return () => {
@@ -95,8 +110,9 @@ function MessageFeed({ channelId }) {
             socket.off('message_broadcast', onMessageBroadcast);
             socket.off('update_broadcast', updateMessage);
             socket.off('delete_broadcast', deleteMessage);
+            socket.off('channel_deleted', removeChannel);
         }
-    }, []);
+    }, [dispatch, setModalContent]);
 
     // Scroll to the bottom of the feed when either:
     // The feed is first rendered or

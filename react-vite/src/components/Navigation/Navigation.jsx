@@ -1,4 +1,4 @@
-import ProfileButton from "./ProfileButton";
+import Profile from "./Profile";
 import ChannelList from "../ChannelList";
 import DMList from "../DMList";
 import "./Navigation.css";
@@ -6,13 +6,7 @@ import "./Navigation.css";
 function Navigation() {
   return (
     <nav>
-      <div id='profile-area'>
-        <ProfileButton />
-        <div id='profile-text'>
-          <h3>Demo User</h3>
-          <p>Status status status</p>
-        </div>
-      </div>
+      <Profile />
       <ChannelList />
       <DMList />
     </nav>

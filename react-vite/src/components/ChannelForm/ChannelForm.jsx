@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useModal } from "../../context/Modal";
+import { useChannel } from '../../context/Channel';
 import { createNewChannelThunk, editChannelThunk } from '../../redux/channels';
 import './ChannelForm.css'
 
@@ -9,6 +10,7 @@ function ChannelForm({ edit=null }) {
 
     // Context
     const { closeModal } = useModal();
+    const { setChannelId } = useChannel();
 
     // React
     const [pageNum, setPageNum] = useState(1);
@@ -17,7 +19,7 @@ function ChannelForm({ edit=null }) {
 
     const thunk = edit ? editChannelThunk : createNewChannelThunk;
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         
         const newChannel = {
@@ -27,8 +29,12 @@ function ChannelForm({ edit=null }) {
             private: false
         }
 
-        dispatch(thunk(newChannel));
+        const createdChannel = await dispatch(thunk(newChannel));
+        
+        // Navigates the user to the newly created channel
+        setChannelId(createdChannel.id);
 
+        // Closes the create channel modal
         closeModal();
     }
 

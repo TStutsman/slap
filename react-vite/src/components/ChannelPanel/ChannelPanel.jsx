@@ -1,12 +1,18 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useChannel } from '../../context/Channel';
+import { joinChannelThunk } from '../../redux/channels';
 import { socket } from '../../socket';
+import { FaAngleDown } from 'react-icons/fa6';
+import OpenModalButton from '../OpenModalButton';
 import MessageFeed from '../MessageFeed/MessageFeed';
 import MessageInput from '../MessageInput';
+import ChannelDetails from '../ChannelDetails';
 import './ChannelPanel.css';
 
 function ChannelPanel() {
+    const dispatch = useDispatch();
+
     const { channelId } = useChannel();
     const sessionUser = useSelector(state => state.session.user);
     const channels = useSelector(state => state.channels);
@@ -22,23 +28,47 @@ function ChannelPanel() {
         }
     }, [sessionUser]);
 
+    const joinChannel = () => {
+        dispatch(joinChannelThunk(channelId));
+    }
+
     // Wait for dispatch to load
     if(!channels.byId) return null;
 
     // Convenience variable for accessing channel info
     const currentChannel = channels.byId[channelId];
+    // For rendering whether the user has joined the channel
+    const joined = channels.joined.has(channelId);
 
     return (
         <div id="channel-panel">
             {currentChannel ?
             <>
                 <div id='channel-details'>
-                    <h3>{currentChannel.name}</h3>
+                    <OpenModalButton
+                        buttonText={<h3>{currentChannel.name} <FaAngleDown size={12}/></h3>}
+                        modalComponent={ <ChannelDetails channel={currentChannel} joined={joined} /> }
+                    />
                     <p>{currentChannel.numUsers} members</p>
                 </div>
                 <MessageFeed channelId={channelId}/>
 
-                <MessageInput sessionUser={sessionUser} />
+                {joined ?
+                    <MessageInput sessionUser={sessionUser} />
+                    :
+                    <div className='join-channel-panel'>
+                        <div className='join-channel-wrapper'>
+                            <h4 className='no-select'># {currentChannel.name}</h4>
+                            <div className='join-channel-options'>
+                                <OpenModalButton 
+                                    buttonText={'Details'}
+                                    modalComponent={<ChannelDetails channel={currentChannel} />}
+                                />
+                                <button className='no-select' onClick={joinChannel}>Join Channel</button>
+                            </div>
+                        </div>
+                    </div>
+                }
             </>
             :
             <div id='channel-details'>

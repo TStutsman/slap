@@ -6,7 +6,7 @@ import ChannelForm from "../ChannelForm";
 import ConfirmDelete from '../ConfirmDelete';
 import './ChannelListItem.css';
 
-function ChannelListItem({ channel }) {
+function ChannelListItem({ channel, joined }) {
     // Context
     const { channelId, setChannelId } = useChannel();
 
@@ -42,12 +42,12 @@ function ChannelListItem({ channel }) {
 
     return (
         <div 
-            className={"no-select channel-list-item" + (channelId === channel.id ? " selected" : "")} 
+            className={"no-select channel-list-item" + (channelId === channel.id ? " selected" : "") + (joined ? " joined" : "")} 
             onClick={() => setChannelId(channel.id)}
         >
             {channel.name}
             {channel.creatorId === sessionUser.id && channelId === channel.id &&
-                <button className="options-control" onClick={toggleDropdown}>...</button>
+                <button className="options-control channel-options" onClick={toggleDropdown}>...</button>
             }
             { dropdownOpen &&
                 <div className="channel-options-dd" ref={ddRef}>

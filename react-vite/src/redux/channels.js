@@ -5,6 +5,7 @@ const ADD_CHANNELS = 'channels/addChannels';
 const ADD_ONE_CHANNEL = 'channels/addOneChannel';
 const UPDATE_CHANNEL = 'channels/updateChannel';
 const DELETE_CHANNEL = 'channels/deleteChannel';
+const JOIN_CHANNEL = 'channels/joinChannel';
 
 const addChannels = channels => ({
     type: ADD_CHANNELS,
@@ -21,9 +22,14 @@ const updateChannel = channel => ({
     channel
 });
 
-const deleteChannel = channel => ({
+export const deleteChannel = channel => ({
     type: DELETE_CHANNEL,
     channelId: channel.id
+});
+
+const joinChannel = channel => ({
+    type: JOIN_CHANNEL,
+    channel
 });
 
 export const getAllChannelsThunk = () => async dispatch => {
@@ -45,6 +51,7 @@ export const createNewChannelThunk = (channel) => async dispatch => {
     }
 
     dispatch(addOneChannel(data));
+    return data;
 }
 
 export const editChannelThunk = (channel) => async dispatch => {
@@ -67,27 +74,49 @@ export const deleteChannelThunk = (channelId) => async dispatch => {
     dispatch(deleteChannel(data));
 }
 
-const initial = { byId: null, allIds: [] }
+export const joinChannelThunk = (channelId) => async dispatch => {
+    const data = await api.post(`/channels/${channelId}/join`);
+
+    if(data.server) {
+        return data
+    }
+
+    dispatch(joinChannel(data));
+}
+
+const initial = { byId: null, allIds: [], joined: null }
 
 export default function channelsReducer(state = initial, action) {
     switch(action.type) {
         case ADD_CHANNELS:
-            return { ...state, byId: action.channels.byId, allIds: action.channels.allIds }
+            return { byId: action.channels.byId, allIds: action.channels.allIds, joined: new Set(action.channels.joined) };
+
         case ADD_ONE_CHANNEL: {
-            const byId = { ...state.byId }
-            byId[action.channel.id] = action.channel;
-            const allIds = [ ...state.allIds ]
-            allIds.push(action.channel.id)
-            return { byId, allIds }
+            state.byId[action.channel.id] = action.channel;
+            state.allIds.push(action.channel.id);
+            state.joined.add(action.channel.id);
+
+            // update the location of state in memory
+            // for useSelectors to rerender
+            return { ...state };
         }
+        
         case UPDATE_CHANNEL: 
-            return { allIds: state.allIds, byId: {...state.byId, [action.channel.id]: action.channel }};
+            return { ...state, byId: {...state.byId, [action.channel.id]: action.channel }};
+        
         case DELETE_CHANNEL: {
             const allIds = state.allIds.filter(id => +id !== +action.channelId);
-            const byId = { ...state.byId };
-            delete byId[action.channelId];
-            return { allIds, byId }
+            delete state.byId[action.channelId];
+            state.joined.delete(action.channelId);
+            return { ...state, allIds };
         }
+
+        case JOIN_CHANNEL: {
+            const newState = { ...state, byId: {...state.byId, [action.channel.id]: action.channel} };
+            newState.joined.add(action.channel.id);
+            return newState;
+        }
+
         default:
             return state;
     }

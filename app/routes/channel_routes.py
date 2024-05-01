@@ -3,19 +3,24 @@ from flask_login import login_required, current_user
 from app.models import db, Channel
 from app.forms import ChannelForm
 
+from flask_socketio import emit
+
 channels = Blueprint('channels', __name__)
 
 @channels.get('/')
 @login_required
 def get_user_channels():
     """
-    Returns all channels the user can join or has joined
+    Returns all channels in the workspace
     """
-    by_id = { channel.id: channel.to_dict() for channel in current_user.channels }
-    all_ids = [ channel.id for channel in current_user.channels ]
+    channels = Channel.query.all()
+    by_id = { channel.id: channel.to_dict() for channel in channels }
+    all_ids = [ channel.id for channel in channels ]
+    joined = [ channel.id for channel in current_user.channels ]
     return { 
         "byId": by_id, 
-        "allIds": all_ids
+        "allIds": all_ids,
+        "joined": joined
     }
 
 @channels.get('/<int:id>/messages')
@@ -105,5 +110,23 @@ def remove_channel(id):
     
     db.session.delete(to_delete)
     db.session.commit()
-
+    
     return deleted
+
+@channels.post('/<int:id>/join')
+@login_required
+def join_channel(id):
+    """
+    Adds the user to the channel's members
+    """
+    channel = Channel.query.get(id)
+
+    if channel == None:
+        return {'error': "Couldn't find channel"}, 404
+    
+    # Adds this channel to the user's channels
+    current_user.channels.append(channel)
+
+    db.session.commit()
+
+    return channel.to_dict()

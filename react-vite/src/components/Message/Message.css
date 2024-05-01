@@ -37,7 +37,7 @@
 
 .content p {
     margin: 0;
-    color: #d9d9d9;
+    color: var(--white);
 }
 
 .message-controls {
@@ -52,7 +52,7 @@
     border-radius: 4px;
 
     font-size: 16px;
-    color: #d9d9d9;
+    color: var(--white);
     background-color: transparent;
 
     height: 30px;
@@ -66,4 +66,47 @@
 
 .message-controls.visible:hover {
     background-color: #5f5f5f;
+}
+
+.message-option-dd {
+    position: absolute;
+    top: 3px;
+    right: 70px;
+
+    width: 180px;
+
+    border-radius: 4px;
+
+    background-color: var(--black);
+}
+
+.message-option-dd > button {
+    padding: 10px;
+    width: 100%;
+
+    border: 1px ridge var(--grey);
+    border-bottom: none;
+
+    color: var(--white);
+    background-color: transparent;
+
+    transition: background-color .2s ease;
+}
+
+.message-option-dd > button:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.message-option-dd > button:last-child {
+    color: #d03535;
+
+    border-bottom: 1px ridge var(--grey);
+    border-radius: 0 0 4px 4px;
+    
+    transition: color .2s ease;
+}
+
+.message-option-dd > button:hover {
+    background-color: var(--blue);
+    color: var(--white);
 }

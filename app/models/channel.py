@@ -27,6 +27,6 @@ class Channel(db.Model):
             'name': self.name,
             'description': self.description,
             'private': bool(self.private),
-            'createdAt': self.created_at,
+            'createdAt': self.created_at.strftime('%B %d, %Y'),
             'numUsers': len(self.users)
         }

@@ -1,20 +1,44 @@
 .channel-list-item {
     position: relative;
-    margin-bottom: 5px;
+    width: 100%;
+
+    padding: 5px;
+    border-radius: 4px;
 
     font-size: 15px;
     font-weight: 200;
 
     cursor: pointer;
+
+    transition: background-color .2s ease, margin-left .3s ease-out;
+}
+
+.channel-list-item:hover:not(.selected) {
+    margin-left: 2px;
+    background-color: var(--black);
 }
 
 .channel-list-item.selected {
     font-weight: 600;
+    background-color: var(--black-2);
 }
 
 .channel-list-item::before {
+    content: '+';
+    margin-right: 10px;
+}
+
+.channel-list-item.joined::before {
     content: '#';
     margin-right: 10px;
+}
+
+.options-control.channel-options {
+    background-color: var(--black-2);
+}
+
+.options-control.channel-options:hover {
+    color: #fff;
 }
 
 .channel-options-dd {
@@ -35,7 +59,7 @@
     font-size: 14px;
     text-align: left;
   
-    color: #d9d9d9;
+    color: var(--white);
     background-color: var(--black);
   
     transition: background-color .2s ease;
@@ -43,4 +67,4 @@
 
 .channel-options-dd button:hover {
     background-color: var(--blue);
-  }
+}

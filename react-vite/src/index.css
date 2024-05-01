@@ -8,7 +8,11 @@
     --lt-green-hover: #96db5e;
     --beige: #ecba82;
     --black: #2f2f2f;
+    --black-2: #3f3f3f;
+    --lt-grey: #a6a6a6;
     --grey: #686868;
+    --dk-grey: #585858;
+    --white: #d9d9d9;
 }
 
 @font-face {
@@ -23,6 +27,9 @@ html {
 }
 
 body {
+    position: relative;
+    z-index: -5;
+
     height: 100vh;
     width: 100vw;
 
@@ -35,6 +42,9 @@ body {
 }
 
 #root {
+    position: relative;
+    z-index: -5;
+
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr;

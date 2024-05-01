@@ -30,6 +30,8 @@ function SignupFormModal() {
         email,
         username,
         password,
+        firstName,
+        lastName
       })
     );
 
@@ -49,6 +51,64 @@ function SignupFormModal() {
       }
     }
   }, [confirmPassword, password, errors])
+
+
+  // Side Effects for every input to remove error
+  // messages on new input
+  // P.S. This is ugly and I can't wait  to learn 
+  // a new way
+  // ============================================
+  useEffect(() => {
+    if(errors.email) {
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.email;
+        return newErrors;
+      });
+    }
+  }, [email]);
+
+  useEffect(() => {
+    if(errors.username) {
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.username;
+        return newErrors;
+      });
+    }
+  }, [username]);
+
+  useEffect(() => {
+    if(errors.firstName) {
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.firstName;
+        return newErrors;
+      });
+    }
+  }, [firstName]);
+
+  useEffect(() => {
+    if(errors.lastName) {
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.lastName;
+        return newErrors;
+      });
+    }
+  }, [lastName]);
+
+  useEffect(() => {
+    if(errors.password) {
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.password;
+        return newErrors
+      });
+    }
+  }, [password]);
+
+  // ============================================
 
   return (
     <div className="signup-modal">

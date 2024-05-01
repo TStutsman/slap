@@ -1,0 +1,28 @@
+#deleted-channel-popup {
+    padding: 20px 40px;
+
+    text-align: right;
+
+    border: 1px solid var(--grey);
+    border-radius: 8px;
+}
+
+#deleted-channel-popup > h3 {
+    margin-top: 0;
+
+    color: var(--white);
+}
+
+#deleted-channel-popup > button {
+    padding: 8px 30px;
+
+    border: 1px solid var(--black);
+    border-radius: 4px;
+
+    color: var(--white);
+    background-color: var(--dk-green);
+}
+
+#deleted-channel-popup > button:hover {
+    background-color: var(--dk-green-hover);
+}
