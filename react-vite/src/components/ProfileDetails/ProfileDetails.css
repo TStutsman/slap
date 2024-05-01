@@ -1,5 +1,6 @@
 .profile-details {
     display: flex;
+    width: 280px;
 
     padding: 20px;
     
@@ -21,7 +22,7 @@
 }
 
 .profile-details > .profile-text {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .profile-details > .profile-text > * {

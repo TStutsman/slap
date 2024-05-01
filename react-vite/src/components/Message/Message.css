@@ -31,6 +31,7 @@
 
 .content-display-name {
     position: relative;
+    width: fit-content;
 }
 
 .message h6 {

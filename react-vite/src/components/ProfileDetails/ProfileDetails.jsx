@@ -11,7 +11,7 @@ function ProfileDetails({ user }) {
 
             <div className='profile-text'>
                 <h3 className='no-select details-name'>{user.firstName} {user.lastName}</h3>
-                <h4 className="no-select details-username">{user.username}</h4>
+                <h4 className="no-select details-username">@{user.username}</h4>
                 <p className="no-select details-status">{user.statusEmoji || '🟢'} {user.statusString || 'Active'}</p>
             </div>
         </div>
