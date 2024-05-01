@@ -29,10 +29,20 @@
     white-space: pre-wrap;
 }
 
+.content-display-name {
+    position: relative;
+}
+
 .message h6 {
     font-size: 16px;
     margin: 0;
     margin-bottom: 5px;
+}
+
+.message-hover-profile {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
 }
 
 .content p {

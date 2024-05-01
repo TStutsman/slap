@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import OpenModalButton from '../OpenModalButton';
 import MessageInput from '../MessageInput';
 import ConfirmDelete from '../ConfirmDelete';
+import ProfileDetails from '../ProfileDetails';
 import './Message.css';
 import { useSelector } from 'react-redux';
 
@@ -14,6 +15,8 @@ function Message({ user, message }) {
     // React
     const [hovered, setHovered] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [profileHover, setProfileHover] = useState(false);
+    const [showProfile, setShowProfile] = useState(false);
 
     // Element Reference
     const dropdownRef = useRef(null);
@@ -39,6 +42,37 @@ function Message({ user, message }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [dropdownOpen]);
 
+    // Shows user profile when hovering user names
+    useEffect(() => {
+        let profileWait;
+
+        if(profileHover) {
+            // If the profile is hovered
+            // Set a .75s wait to show profile
+            // (has no effect if already showing)
+            profileWait = setTimeout(() => {
+                setShowProfile(true);
+            }, 500);
+
+        } else {
+            // If the profile is unhovered
+            // Set a .5s wait to hide profile
+            // (has no effect if already hidden)
+            profileWait = setTimeout(() => {
+                setShowProfile(false);
+            }, 300);
+        }
+
+        // Runs every time profileHover changes
+        // (Before the above is reevaluated)
+        return () => {
+            // Clear the profileWait timer
+            // before assigning a new one
+            clearTimeout(profileWait);
+        }
+    }, [profileHover]);
+
+
     // Convenient variables
     const author = user || {
         id: -1,
@@ -60,7 +94,14 @@ function Message({ user, message }) {
                 <img src={author.profilePhotoUrl} alt="profile_photo" />
             </div>
             <div className='content'>
-                <h6>{author.displayName}</h6>
+                <div className='content-display-name' onMouseOver={() => setProfileHover(true)} onMouseLeave={() => setProfileHover(false)}>
+                    <h6>{author.displayName}</h6>
+                    { showProfile && 
+                        <div className='message-hover-profile'>
+                            <ProfileDetails user={user}/>
+                        </div> 
+                    }
+                </div>
                 <p>{message.content}</p>
             </div>
             {
