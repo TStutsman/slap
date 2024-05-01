@@ -21,6 +21,7 @@ function Landing() {
                     buttonText={"Sign Up"}
                 />
             </div>
+            <h2 id='background-slap'>Slap!</h2>
             <Modal />
         </div>
     );
