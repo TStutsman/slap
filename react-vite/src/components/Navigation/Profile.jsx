@@ -74,6 +74,7 @@ function Profile() {
 
     dispatch(updateProfileThunk(profile));
     setUpdating(false);
+    setShowMenu(false);
   }
 
   const logout = (e) => {
