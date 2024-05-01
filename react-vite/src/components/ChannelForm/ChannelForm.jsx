@@ -45,7 +45,7 @@ function ChannelForm({ edit=null }) {
 
     return (
         <form className="channel-form" onSubmit={handleSubmit}>
-            <h2>Create a Channel</h2>
+            <h2>{edit ? `Update # ${edit.name}` : 'Create a Channel'}</h2>
             { pageNum === 1 ?
                     <label>
                         Choose a channel name
@@ -75,7 +75,7 @@ function ChannelForm({ edit=null }) {
             { pageNum < 2 ? 
                     <button className="channel-form-btn" onClick={handleNext}>Next</button> 
                 : 
-                    <button className="channel-form-btn" type="submit">Create Channel</button>
+                    <button className="channel-form-btn" type="submit">{edit ? 'Update' : 'Create'} Channel</button>
             }
         </form>
     );

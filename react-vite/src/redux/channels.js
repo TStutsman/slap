@@ -62,6 +62,7 @@ export const editChannelThunk = (channel) => async dispatch => {
     }
 
     dispatch(updateChannel(data));
+    return data;
 }
 
 export const deleteChannelThunk = (channelId) => async dispatch => {
