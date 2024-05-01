@@ -42,8 +42,8 @@ def update_profile():
     if not form.validate_on_submit():
         return { 'errors': form.errors }, 400
     
-    current_user.status_string = form.status_string.data
-    current_user.status_emoji = form.status_emoji.data
+    current_user.status_string = form.statusString.data
+    current_user.status_emoji = form.statusEmoji.data
 
     db.session.commit()
 

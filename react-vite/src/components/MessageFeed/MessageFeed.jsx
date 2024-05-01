@@ -112,7 +112,7 @@ function MessageFeed({ channelId }) {
             socket.off('delete_broadcast', deleteMessage);
             socket.off('channel_deleted', removeChannel);
         }
-    }, [dispatch]);
+    }, [dispatch, setModalContent]);
 
     // Scroll to the bottom of the feed when either:
     // The feed is first rendered or

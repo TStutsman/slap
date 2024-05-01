@@ -60,43 +60,53 @@ function SignupFormModal() {
   // ============================================
   useEffect(() => {
     if(errors.email) {
-      const newErrors = {...errors};
-      delete newErrors.email;
-      return setErrors(newErrors);
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.email;
+        return newErrors;
+      });
     }
-  }, [email])
+  }, [email]);
 
   useEffect(() => {
     if(errors.username) {
-      const newErrors = {...errors};
-      delete newErrors.username;
-      return setErrors(newErrors);
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.username;
+        return newErrors;
+      });
     }
-  }, [username])
+  }, [username]);
 
   useEffect(() => {
     if(errors.firstName) {
-      const newErrors = {...errors};
-      delete newErrors.firstName;
-      return setErrors(newErrors);
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.firstName;
+        return newErrors;
+      });
     }
-  }, [firstName])
+  }, [firstName]);
 
   useEffect(() => {
     if(errors.lastName) {
-      const newErrors = {...errors};
-      delete newErrors.lastName;
-      return setErrors(newErrors);
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.lastName;
+        return newErrors;
+      });
     }
-  }, [lastName])
+  }, [lastName]);
 
   useEffect(() => {
     if(errors.password) {
-      const newErrors = {...errors};
-      delete newErrors.password;
-      return setErrors(newErrors);
+      setErrors(previous => {
+        const newErrors = {...previous};
+        delete newErrors.password;
+        return newErrors
+      });
     }
-  }, [password])
+  }, [password]);
 
   // ============================================
 
