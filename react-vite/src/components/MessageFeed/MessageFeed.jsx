@@ -42,14 +42,12 @@ function MessageFeed({ channelId }) {
         // successful connect response
         function onConnect() {
             setSocketConnected(true);
-            console.log('Socket Connected!')
         }
 
         // Runs after the server sends a
         // successful disconnect response
         function onDisconnect() {
             setSocketConnected(false);
-            console.log('Socket Disconnected!')
         }
     
         // Runs when the server sends all the messages

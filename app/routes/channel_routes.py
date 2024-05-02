@@ -53,7 +53,7 @@ def create_new_channel():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
-        return form.errors, 400
+        return { 'errors': form.errors }, 400
 
     new_channel = Channel(
         workspace_id = 1,
@@ -86,7 +86,7 @@ def edit_channel(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
-        return form.errors, 400
+        return { 'errors': form.errors }, 400
     
     to_update.name = form.name.data
     to_update.description = form.description.data

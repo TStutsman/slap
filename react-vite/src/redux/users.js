@@ -34,6 +34,18 @@ export const updateProfileThunk = (profile) => async dispatch => {
     }
   
     dispatch(updateProfile(data));
+    return data;
+}
+
+export const updateProfilePhotoThunk = profilePhoto => async dispatch => {
+    const data = await api.post('/users/current/profilePhoto', profilePhoto);
+
+    if(data.server) {
+        return data;
+    }
+
+    dispatch(updateProfile(data));
+    return data;
 }
 
 const initialState = { byId: null, allIds: [] }

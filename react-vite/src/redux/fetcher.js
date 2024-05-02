@@ -1,3 +1,16 @@
+// returns the correct payload object
+// dynamically based on type (json || form-data)
+const fetchOptions = payload => {
+    if(payload instanceof FormData) {
+        return { body: payload }
+    } 
+    // else
+    return {
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    }
+}
+
 export default class Fetcher {
     constructor(prefix = "") {
         this.prefix = prefix;
@@ -17,13 +30,11 @@ export default class Fetcher {
     post = async (url, payload) => {
         const response = await fetch(this.prefix + url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
+            ...fetchOptions(payload)
         });
 
-        if(response.ok) {
+        // if the response has data or errors return them
+        if(response.status < 500) {
             const data = await response.json();
             return data;
         } else {
@@ -34,13 +45,11 @@ export default class Fetcher {
     put = async (url, payload) => {
         const response = await fetch(this.prefix + url, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
+            ...fetchOptions(payload)
         });
 
-        if(response.ok) {
+        // if the response has data or errors return them
+        if(response.status < 500) {
             const data = await response.json();
             return data;
         } else {

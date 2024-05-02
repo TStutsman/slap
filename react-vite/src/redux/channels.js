@@ -46,22 +46,21 @@ export const getAllChannelsThunk = () => async dispatch => {
 export const createNewChannelThunk = (channel) => async dispatch => {
     const data = await api.post('/channels', channel);
 
-    if(data.server) {
-        return data;
-    }
+    // only run the dispatch if there wasn't an error
+    if(!data.errors) dispatch(addOneChannel(data));
 
-    dispatch(addOneChannel(data));
+    // always return the data (errors or not)
     return data;
 }
 
 export const editChannelThunk = (channel) => async dispatch => {
     const data = await api.put(`/channels/${channel.id}`, channel);
 
-    if(data.server) {
-        return data;
-    }
+    // only run the dispatch if there wasn't an error
+    if(!data.server) dispatch(updateChannel(data));
 
-    dispatch(updateChannel(data));
+    // always return the data (errors or not)
+    return data;
 }
 
 export const deleteChannelThunk = (channelId) => async dispatch => {
