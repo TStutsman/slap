@@ -59,53 +59,38 @@ function SignupFormModal() {
   // a new way
   // ============================================
   useEffect(() => {
-    if(errors.email) {
-      setErrors(previous => {
-        const newErrors = {...previous};
-        delete newErrors.email;
-        return newErrors;
-      });
-    }
+    setErrors(previous => {
+      delete previous.email;
+      return { ...previous };
+    });
   }, [email]);
 
   useEffect(() => {
-    if(errors.username) {
-      setErrors(previous => {
-        const newErrors = {...previous};
-        delete newErrors.username;
-        return newErrors;
-      });
-    }
+    setErrors(previous => {
+      delete previous.username;
+      return { ...previous };
+    });
   }, [username]);
 
   useEffect(() => {
-    if(errors.firstName) {
-      setErrors(previous => {
-        const newErrors = {...previous};
-        delete newErrors.firstName;
-        return newErrors;
-      });
-    }
+    setErrors(previous => {
+      delete previous.firstName;
+      return { ...previous };
+    });
   }, [firstName]);
 
   useEffect(() => {
-    if(errors.lastName) {
-      setErrors(previous => {
-        const newErrors = {...previous};
-        delete newErrors.lastName;
-        return newErrors;
-      });
-    }
+    setErrors(previous => {
+      delete previous.lastName;
+      return { ...previous };
+    });
   }, [lastName]);
 
   useEffect(() => {
-    if(errors.password) {
-      setErrors(previous => {
-        const newErrors = {...previous};
-        delete newErrors.password;
-        return newErrors
-      });
-    }
+    setErrors(previous => {
+      delete previous.password;
+      return { ...previous };
+    });
   }, [password]);
 
   // ============================================

@@ -15,6 +15,7 @@ function ChannelListItem({ channel, joined }) {
 
     // React
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [selected, setSelected] = useState(false);
 
     // Reference for dropdown element
     const ddRef = useRef(null);
@@ -40,13 +41,17 @@ function ChannelListItem({ channel, joined }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [dropdownOpen]);
 
+    useEffect(() => {
+        setSelected(+channelId === channel.id);
+    }, [channelId, channel]);
+
     return (
         <div 
-            className={"no-select channel-list-item" + (channelId === channel.id ? " selected" : "") + (joined ? " joined" : "")} 
+            className={"no-select channel-list-item" + (selected ? " selected" : "") + (joined ? " joined" : "")} 
             onClick={() => setChannelId(channel.id)}
         >
             {channel.name}
-            {channel.creatorId === sessionUser.id && channelId === channel.id &&
+            {channel.creatorId === sessionUser.id && selected &&
                 <button className="options-control channel-options" onClick={toggleDropdown}>...</button>
             }
             { dropdownOpen &&

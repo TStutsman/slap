@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useChannel } from '../../context/Channel';
 import { joinChannelThunk } from '../../redux/channels';
@@ -22,6 +22,9 @@ function ChannelPanel() {
     const users = useSelector(state => state.users);
     const channels = useSelector(state => state.channels);
 
+    // React
+    const [joined, setJoined] = useState(false);
+
     // Opens the socket after user is logged in
     useEffect(() => {
         if(sessionUser !== null) {
@@ -33,6 +36,11 @@ function ChannelPanel() {
         }
     }, [sessionUser]);
 
+    // For rendering whether the user has joined the channel
+    useEffect(() => {
+        setJoined(channels.joined?.has(+channelId));
+    }, [channels, channelId]);
+
     const joinChannel = () => {
         dispatch(joinChannelThunk(channelId));
     }
@@ -42,8 +50,6 @@ function ChannelPanel() {
 
     // Convenience variable for accessing channel info
     const currentChannel = channels.byId[channelId];
-    // For rendering whether the user has joined the channel
-    const joined = channels.joined.has(channelId);
 
     return (
         <div id="channel-panel">
