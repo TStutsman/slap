@@ -9,7 +9,7 @@ s3 = boto3.client(
     aws_secret_access_key = os.environ.get("S3_SECRET_KEY")
 )
 
-ALLOWED_EXTENSIONS = {'pdf', 'gif', 'png', 'jpg', 'jpeg', 'webp'}
+ALLOWED_EXTENSIONS = ['pdf', 'gif', 'png', 'jpg', 'jpeg', 'webp']
 
 def unique_filename(filename):
     """
@@ -61,5 +61,5 @@ def s3_remove_file(url):
             Key=filename
         )
     except Exception as e:
-        return {"errors": str(e)}
-    return True
+        return {"errors": str(e), "status": False}
+    return { "status": True }

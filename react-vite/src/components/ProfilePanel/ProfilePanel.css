@@ -1,0 +1,169 @@
+#profile-panel {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-height: 100%;
+    overflow: scroll;
+
+    color: var(--white);
+}
+
+#profile-panel > div{
+    box-sizing: border-box;
+    padding: 0 50px;
+    width: 100%;
+}
+
+#profile-panel-img {
+    display: flex;
+    justify-content: center;
+}
+
+#profile-panel-img input {
+    display: none;
+}
+
+.profile-panel-img-wrapper {
+    position: relative;
+    min-height: 350px;
+    height: 350px;
+    width: 350px;
+    overflow: hidden;
+
+    align-self: center;
+
+    margin-top: 100px;
+    
+    border-radius: 12px;
+}
+
+.profile-panel-img-wrapper > img {
+    width: 350px;
+    aspect-ratio: 1/1;
+}
+
+.upload-profile-photo {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+
+    padding: 10px 15px;
+
+    border: none;
+    border-radius: 4px;
+
+    color: var(--white);
+    background-color: var(--black);
+}
+
+.upload-profile-photo.save {
+    top: auto;
+    bottom: 10px;
+    background-color: var(--dk-green);
+}
+
+.upload-profile-photo.save:hover {
+    background-color: var(--dk-green-hover);
+}
+
+.upload-profile-photo.cancel {
+    top: auto;
+    bottom: 10px;
+    right: auto;
+    left: 15px;
+}
+
+.upload-profile-photo:hover {
+    background-color: var(--black-2);
+}
+
+#profile-panel-info h2 {
+    font-size: 38px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.profile-info-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 50px;
+}
+
+.profile-info-status.edit{
+    margin-bottom: 7.5px;
+}
+
+.profile-info-status p {
+    margin: 0;
+    font-size: 18px;
+}
+
+
+.profile-info-status svg {
+    cursor: pointer;
+
+    padding: 5px;
+    margin-left: 60px;
+    border-radius: 4px;
+}
+
+.profile-info-status svg:hover {
+    background-color: var(--black-2);
+}
+
+.status-input {
+    outline: none;
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 5px;
+
+    border-color: #212121;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+
+    color: var(--white);
+    background-color: var(--black-2);
+
+    transition: border-color .2s;
+}
+
+.status-input:hover, .status-input:focus {
+    border-color: var(--white);
+}
+
+#profile-panel-contact h3 {
+    font-size: 24px;
+}
+
+#profile-panel-contact {
+    border-top: 1px solid var(--grey);
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding-bottom: 30px;
+}
+
+.contact-details-icon {
+    padding: 0;
+    height: 40px;
+}
+
+.contact-detail h6 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.contact-detail p {
+    margin: 0;
+}

@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
 import { updateProfileThunk } from "../../redux/users";
 import { FaAngleDown } from 'react-icons/fa6';
+import { useChannel } from "../../context/Channel";
 
 function Profile() {
   const dispatch = useDispatch();
   const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";
+
+  // Context
+  const { setChannelId } = useChannel();
 
   // Redux
   const user = useSelector((store) => store.session.user);
@@ -90,6 +94,7 @@ function Profile() {
       </div>
       {showMenu && (
         <div className={"profile-dropdown"} ref={divRef}>
+          <button onClick={() => setChannelId(-1)}>Profile</button>
           <button onClick={beginStatusUpdate}>Update Status</button>
           <button onClick={logout}>Log Out</button>
         </div>

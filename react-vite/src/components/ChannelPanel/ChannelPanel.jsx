@@ -8,13 +8,18 @@ import OpenModalButton from '../OpenModalButton';
 import MessageFeed from '../MessageFeed/MessageFeed';
 import MessageInput from '../MessageInput';
 import ChannelDetails from '../ChannelDetails';
+import ProfilePanel from '../ProfilePanel';
 import './ChannelPanel.css';
 
 function ChannelPanel() {
     const dispatch = useDispatch();
 
+    // Context
     const { channelId } = useChannel();
+
+    // Redux Store
     const sessionUser = useSelector(state => state.session.user);
+    const users = useSelector(state => state.users);
     const channels = useSelector(state => state.channels);
 
     // Opens the socket after user is logged in
@@ -42,7 +47,9 @@ function ChannelPanel() {
 
     return (
         <div id="channel-panel">
-            {currentChannel ?
+            { channelId === -1 ?
+                <ProfilePanel user={users.byId?.[sessionUser?.id]} />
+            : currentChannel ?
             <>
                 <div id='channel-details'>
                     <OpenModalButton
