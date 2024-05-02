@@ -33,7 +33,8 @@ export default class Fetcher {
             ...fetchOptions(payload)
         });
 
-        if(response.ok) {
+        // if the response has data or errors return them
+        if(response.status < 500) {
             const data = await response.json();
             return data;
         } else {
@@ -47,7 +48,8 @@ export default class Fetcher {
             ...fetchOptions(payload)
         });
 
-        if(response.ok) {
+        // if the response has data or errors return them
+        if(response.status < 500) {
             const data = await response.json();
             return data;
         } else {

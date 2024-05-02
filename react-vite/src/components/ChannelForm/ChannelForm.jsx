@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useModal } from "../../context/Modal";
 import { useChannel } from '../../context/Channel';
@@ -16,8 +16,23 @@ function ChannelForm({ edit=null }) {
     const [pageNum, setPageNum] = useState(1);
     const [name, setName] = useState(edit?.name || "");
     const [description, setDescription] = useState(edit?.description || "");
+    const [errors, setErrors] = useState({});
 
     const thunk = edit ? editChannelThunk : createNewChannelThunk;
+
+    useEffect(() => {
+        setErrors(previous => {
+            delete previous.name;
+            return { ...previous }
+        });
+    }, [name]);
+
+    useEffect(() => {
+        setErrors(previous => {
+            delete previous.description;
+            return { ...previous }
+        });
+    }, [description]);
 
     // only allow letters and dashes
     // sanitize uppercase -> lowercase and spaces -> dashes
@@ -36,10 +51,17 @@ function ChannelForm({ edit=null }) {
             private: false
         }
 
-        const createdChannel = await dispatch(thunk(newChannel));
+        const response = await dispatch(thunk(newChannel));
+
+        if (response.errors) {
+            setErrors(response.errors);
+
+            if (response.errors.name) setPageNum(1);
+            return;
+        }
         
         // Navigates the user to the newly created channel
-        setChannelId(createdChannel.id);
+        setChannelId(response.id);
 
         // Closes the create channel modal
         closeModal();
@@ -65,6 +87,7 @@ function ChannelForm({ edit=null }) {
                             placeholder="your-channel-name-here"
                             required
                         />
+                        { errors.name ? <p className="error">{errors.name}</p> : null }
                     </label>
                 : 
                     <label>
@@ -77,6 +100,7 @@ function ChannelForm({ edit=null }) {
                             placeholder="description here"
                             required
                         />
+                        { errors.description ? <p className="error">{errors.description}</p> : null }
                     </label>
             }
             { pageNum < 2 ? 
