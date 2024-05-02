@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
-import { updateProfileThunk } from "../../redux/users";
 import { FaAngleDown } from 'react-icons/fa6';
 import { useChannel } from "../../context/Channel";
 
@@ -13,17 +12,19 @@ function Profile() {
   const { setChannelId } = useChannel();
 
   // Redux
-  const user = useSelector((store) => store.session.user);
+  const sessionUser = useSelector((store) => store.session.user);
   const users = useSelector(state => state.users);
+
+  // Get all of the user info from users store
+  // instead of session store since 'users' gets updated
+  // and 'session' will not to preserve socket connection
+  const user = users.byId?.[sessionUser?.id];
 
   // React
   const [showMenu, setShowMenu] = useState(false);
-  const [updating, setUpdating] = useState(false);
-  const [status, setStatus] = useState(user.statusString || '');
 
   // Element Refs
   const divRef = useRef();
-  const statusRef = useRef();
 
   // Toggle the logout menu
   const toggleMenu = (e) => {
@@ -47,40 +48,6 @@ function Profile() {
   }, [showMenu]);
 
 
-  // Close profile input on click anywhere off-input
-  useEffect(() => {
-    if (!updating) return;
-
-    const closeInput = (e) => {
-      if (statusRef.current && !statusRef.current.contains(e.target)) {
-        setUpdating(false);
-      }
-    };
-
-    document.addEventListener("click", closeInput);
-
-    return () => document.removeEventListener("click", closeInput);
-  }, [updating]);
-
-
-
-  const beginStatusUpdate = () => {
-    setUpdating(true);
-  }
-
-  const handleProfileUpdate = (e) => {
-    e.preventDefault();
-
-    const profile = {
-      statusEmoji: '🟢',
-      statusString: status
-    }
-
-    dispatch(updateProfileThunk(profile));
-    setUpdating(false);
-    setShowMenu(false);
-  }
-
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
@@ -94,31 +61,14 @@ function Profile() {
       </div>
       {showMenu && (
         <div className={"profile-dropdown"} ref={divRef}>
-          <button onClick={() => setChannelId(-1)}>Profile</button>
-          <button onClick={beginStatusUpdate}>Update Status</button>
+          <button onClick={() => setChannelId(-1)}>View Profile</button>
           <button onClick={logout}>Log Out</button>
         </div>
       )}
 
       <div id='profile-text'>
-        <h3 className="no-select">{user.username}</h3>
-        { updating ? 
-          <form onSubmit={handleProfileUpdate}>
-            <input
-              type="text"
-              id="profile-status-input"
-              onClick={e => e.stopPropagation()}
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              placeholder="Status"
-              autoFocus
-              ref={statusRef}
-            />
-            <input type="submit" style={{display: 'none'}}/>
-          </form>
-          :
-          <p className="no-select">{users?.byId?.[user.id]?.statusEmoji || '🟢'} {users?.byId?.[user.id]?.statusString || 'Active'}</p>
-        }
+        <h3 className="no-select">{user?.username}</h3>
+        <p className="no-select">{user?.statusEmoji || '🟢'} {user?.statusString || 'Active'}</p>
       </div>
 
       <div className="profile-caret">

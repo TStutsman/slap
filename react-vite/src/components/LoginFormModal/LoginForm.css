@@ -85,3 +85,17 @@
     background-color: var(--white);
     color: #a6a6a6;
 }
+
+.login-modal .demo {
+    border: none;
+
+    color: #2b98e6;
+    background-color: var(--black-2);
+
+    transition: color .3s ease, background-color .3s ease;
+}
+
+.login-modal .demo:hover {
+    color: #9ad0f7;
+    background-color: var(--dk-grey);
+}
