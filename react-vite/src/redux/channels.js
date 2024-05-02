@@ -88,7 +88,11 @@ const initial = { byId: null, allIds: [], joined: null }
 export default function channelsReducer(state = initial, action) {
     switch(action.type) {
         case ADD_CHANNELS:
-            return { byId: action.channels.byId, allIds: action.channels.allIds, joined: new Set(action.channels.joined) };
+            return { 
+                byId: action.channels.byId, 
+                allIds: action.channels.allIds, 
+                joined: new Set(action.channels.joined) 
+            };
 
         case ADD_ONE_CHANNEL: {
             state.byId[action.channel.id] = action.channel;
@@ -101,7 +105,10 @@ export default function channelsReducer(state = initial, action) {
         }
         
         case UPDATE_CHANNEL: 
-            return { ...state, byId: {...state.byId, [action.channel.id]: action.channel }};
+            return { 
+                ...state, 
+                byId: {...state.byId, [action.channel.id]: action.channel }
+            };
         
         case DELETE_CHANNEL: {
             const allIds = state.allIds.filter(id => +id !== +action.channelId);

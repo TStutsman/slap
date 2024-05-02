@@ -1,9 +1,13 @@
-import { useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext, useEffect } from 'react';
 
 const ChannelContext = createContext();
 
 export function ChannelProvider({ children }) {
-    const [ channelId, setChannelId ] = useState(1);
+    const [ channelId, setChannelId ] = useState(localStorage.getItem('channelId') || 1);
+
+    useEffect(() => {
+        localStorage.setItem('channelId', channelId);
+    }, [channelId])
 
     return (
         <ChannelContext.Provider value={{ channelId, setChannelId }}>
