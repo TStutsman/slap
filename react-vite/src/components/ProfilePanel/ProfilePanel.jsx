@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaPencil, FaRegEnvelope } from 'react-icons/fa6';
-import { updateProfilePhotoThunk } from '../../redux/users';
+import { updateProfileThunk, updateProfilePhotoThunk } from '../../redux/users';
 import './ProfilePanel.css';
 
 function ProfilePanel({ user }) {
@@ -10,14 +10,28 @@ function ProfilePanel({ user }) {
 
     const [editing, setEditing] = useState(false);
     const [status, setStatus] = useState("");
+    const [errors, setErrors] = useState({});
+
     const [image, setImage] = useState();
     const [tempUrl, setTempUrl] = useState('');
 
     const formRef = useRef();
 
-    const handleStatusUpdate = (e) => {
+    const handleStatusUpdate = async (e) => {
         e.preventDefault();
-        alert(status);
+        
+        const payload = {
+            statusEmoji: '🟢',
+            statusString: status
+        }
+
+        const response = await dispatch(updateProfileThunk(payload))
+
+        if(response.errors){
+            setErrors(response.errors)
+            return;
+        }
+        
         setStatus('');
         setEditing(false);
     }
@@ -97,6 +111,7 @@ function ProfilePanel({ user }) {
                             onChange={e => setStatus(e.target.value)}
                             placeholder='Set your status'
                         />
+                        { errors.status ? <p className='error'>{errors.status}</p> : null }
                         <input type="submit" style={{display: 'none'}}/>
                     </form>
                 }

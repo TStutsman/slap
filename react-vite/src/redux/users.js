@@ -34,6 +34,7 @@ export const updateProfileThunk = (profile) => async dispatch => {
     }
   
     dispatch(updateProfile(data));
+    return data;
 }
 
 export const updateProfilePhotoThunk = profilePhoto => async dispatch => {
