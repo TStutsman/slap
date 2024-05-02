@@ -19,6 +19,13 @@ function ChannelForm({ edit=null }) {
 
     const thunk = edit ? editChannelThunk : createNewChannelThunk;
 
+    // only allow letters and dashes
+    // sanitize uppercase -> lowercase and spaces -> dashes
+    const formatSetName = (name) => {
+        if(name.split().some(char => char.match(/[^\w\s-]/))) return;
+        setName(name.toLowerCase().replace(' ', '-'));
+    }
+
     const handleSubmit = async e => {
         e.preventDefault();
         
@@ -54,7 +61,7 @@ function ChannelForm({ edit=null }) {
                             type="text"
                             className="channel-name"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => formatSetName(e.target.value)}
                             placeholder="your-channel-name-here"
                             required
                         />
