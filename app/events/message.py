@@ -22,18 +22,20 @@ def update_message(message):
 
     if updated_message == None:
         print(' === Couldnt find the message === ')
+        return
 
     channel_id = updated_message.channel_id
     updated_message.content = message['content']
 
     db.session.commit()
+    
     emit('update_broadcast', updated_message.to_dict(), to=channel_id)
 
 @socketio.on('delete_message')
 def delete_message(messageId):
     to_delete = Message.query.get(messageId)
 
-    if delete_message == None:
+    if to_delete == None:
         print(' === Couldnt find the message ===')
         return
 

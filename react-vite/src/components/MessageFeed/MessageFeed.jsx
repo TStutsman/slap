@@ -38,16 +38,19 @@ function MessageFeed({ channelId }) {
 
     // Definitions for events to listen to from the server
     useEffect(() => {
+        
         // Runs after the server sends a
         // successful connect response
         function onConnect() {
             setSocketConnected(true);
+            console.log('SOCKET CONNECTED')
         }
 
         // Runs after the server sends a
         // successful disconnect response
         function onDisconnect() {
             setSocketConnected(false);
+            console.log('SOCKET DISCONNECT')
         }
     
         // Runs when the server sends all the messages
@@ -66,6 +69,7 @@ function MessageFeed({ channelId }) {
 
         // Runs when any user updates a message
         function updateMessage(message) {
+            console.log(message)
             setMessages(previous => ({ ...previous, [message.id]: message }))
         }
 

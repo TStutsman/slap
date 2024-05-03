@@ -20,6 +20,7 @@
 }
 
 .message img {
+    object-fit: cover;
     width: 60px;
     aspect-ratio: 1/1;
 }
@@ -29,15 +30,24 @@
     white-space: pre-wrap;
 }
 
-.content-display-name {
+.content-author-time {
     position: relative;
     width: fit-content;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
 }
 
-.message h6 {
+.message h6.author {
     font-size: 16px;
     margin: 0;
     margin-bottom: 5px;
+}
+
+.message p.created-at {
+    color: var(--lt-grey);
+    font-size: 14px;
+    margin-bottom: 7px;
 }
 
 .message-hover-profile {
