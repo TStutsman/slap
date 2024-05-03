@@ -17,6 +17,7 @@
 }
 
 .profile-details > .profile-photo img {
+    object-fit: cover;
     width: 80px;
     aspect-ratio: 1/1;
 }
