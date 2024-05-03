@@ -75,15 +75,7 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-
-        # Attempting to not delete all user-created users in db
-        for seed in users:
-            user = User.query.filter_by(username=seed.username).first()
-            if user:
-                db.session.delete(user)
-        db.session.commit()
-
-        # db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
         
