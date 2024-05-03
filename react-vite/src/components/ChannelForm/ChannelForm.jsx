@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useModal } from "../../context/Modal";
-import { useChannel } from '../../context/Channel';
 import { createNewChannelThunk, editChannelThunk } from '../../redux/channels';
 import './ChannelForm.css'
 
-function ChannelForm({ edit=null }) {
+function ChannelForm({ edit=null, setChannelId }) {
     const dispatch = useDispatch();
 
     // Context
     const { closeModal } = useModal();
-    const { setChannelId } = useChannel();
 
     // React
     const [pageNum, setPageNum] = useState(1);

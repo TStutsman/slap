@@ -20,18 +20,18 @@ export default function Layout() {
   return (
     <>
     { isLoaded ?
-      <ChannelProvider>
-        <ModalProvider>
-          { sessionUser === null ? 
-            <Landing /> : 
-            <>
-                <Navigation />
-                { isLoaded && <Outlet /> }
-            </>
-          }
-          <Modal /> 
-        </ModalProvider>
-      </ChannelProvider> :
+      <ModalProvider>
+        { sessionUser === null ? 
+          <Landing />
+          : 
+          <ChannelProvider>
+            <Navigation />
+            { isLoaded && <Outlet /> }
+          </ChannelProvider>
+        }
+        <Modal /> 
+      </ModalProvider>
+      :
       <Loading />
     }
     </>
