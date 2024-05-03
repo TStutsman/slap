@@ -1,65 +1,65 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 
+users = [
+    User(
+        username='Demo', 
+        email='demo@aa.io', 
+        password='password',
+        first_name='Demo',
+        last_name ='User',
+        status_emoji='✅',
+        status_string='Active',
+        theme='dark'
+    ),
+    User(
+        username='lbraurson', 
+        email='lbraurson@aa.io', 
+        password='module1',
+        first_name='Landon',
+        last_name="Braurson",
+        status_emoji='🎡',
+        status_string='Active',
+        theme='dark',
+        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/spiderman.jpeg'
+    ),
+    User(
+        username='wshilkey',
+        email='wshilkey@aa.io',
+        password='module2',
+        first_name='Wane',
+        last_name="Shilkey",
+        status_emoji='🐶',
+        status_string='Hip-Hop Adjacent',
+        theme='dark',
+        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hiphop90.png'
+    ),
+    User(
+        username='ogeono',
+        email='ogeono@aa.io',
+        password='module3',
+        first_name='Otieffrey',
+        last_name="Geono",
+        status_emoji='🖋️',
+        status_string='Drawing an API',
+        theme='dark',
+        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/gamerdog.jpeg'
+    ),
+    User(
+        username='staw',
+        email='staw@aa.io',
+        password='module3',
+        first_name='Shanner',
+        last_name="Taw",
+        status_emoji='🤓',
+        status_string='At my other job',
+        theme='dark',
+        profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hacker.png'
+    )
+]
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    users = [
-        User(
-            username='Demo', 
-            email='demo@aa.io', 
-            password='password',
-            first_name='Demo',
-            last_name ='User',
-            status_emoji='✅',
-            status_string='Active',
-            theme='dark'
-        ),
-        User(
-            username='lbraurson', 
-            email='lbraurson@aa.io', 
-            password='module1',
-            first_name='Landon',
-            last_name="Braurson",
-            status_emoji='🎡',
-            status_string='Active',
-            theme='dark',
-            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/spiderman.jpeg'
-        ),
-        User(
-            username='wshilkey',
-            email='wshilkey@aa.io',
-            password='module2',
-            first_name='Wane',
-            last_name="Shilkey",
-            status_emoji='🐶',
-            status_string='Hip-Hop Adjacent',
-            theme='dark',
-            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hiphop90.png'
-        ),
-        User(
-            username='ogeono',
-            email='ogeono@aa.io',
-            password='module3',
-            first_name='Otieffrey',
-            last_name="Geono",
-            status_emoji='🖋️',
-            status_string='Drawing an API',
-            theme='dark',
-            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/gamerdog.jpeg'
-        ),
-        User(
-            username='staw',
-            email='staw@aa.io',
-            password='module3',
-            first_name='Shanner',
-            last_name="Taw",
-            status_emoji='🤓',
-            status_string='At my other job',
-            theme='dark',
-            profile_photo_url='https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/hacker.png'
-        )
-    ]
 
     for user in users:
         db.session.add(user)
@@ -75,7 +75,15 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+
+        # Attempting to not delete all user-created users in db
+        for seed in users:
+            user = User.query.filter_by(username=seed.username).first()
+            if user:
+                db.session.delete(user)
+        db.session.commit()
+
+        # db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
         
