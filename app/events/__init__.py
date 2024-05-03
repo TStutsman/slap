@@ -1,4 +1,5 @@
 from .message import socketio
+from flask_socketio import emit
 from flask_login import current_user
 
 @socketio.on('connect')

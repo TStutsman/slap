@@ -94,8 +94,9 @@ function Message({ user, message }) {
                 <img src={author.profilePhotoUrl} alt="profile_photo" />
             </div>
             <div className='content'>
-                <div className='content-display-name' onMouseOver={() => setProfileHover(true)} onMouseLeave={() => setProfileHover(false)}>
-                    <h6>{author.displayName}</h6>
+                <div className='content-author-time' onMouseOver={() => setProfileHover(true)} onMouseLeave={() => setProfileHover(false)}>
+                    <h6 className='author'>{author.displayName}</h6>
+                    <p className='created-at'>{message.updatedAt}</p>
                     { showProfile && 
                         <div className='message-hover-profile'>
                             <ProfileDetails user={user}/>

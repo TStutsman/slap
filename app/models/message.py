@@ -11,8 +11,8 @@ class Message(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'))
     channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id'), ondelete='CASCADE'))
     content = db.Column(db.String(500), nullable=False)
-    created_at = db.Column(db.Date, default=datetime.now())
-    updated_at = db.Column(db.Date, default=datetime.now(), onupdate=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     author = db.relationship('User', back_populates='messages')
     channel = db.relationship('Channel', back_populates='messages')
@@ -25,6 +25,6 @@ class Message(db.Model):
             'authorId': self.author_id,
             'channelId': self.channel_id,
             'content': self.content,
-            'createdAt': self.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-            'updatedAt': self.updated_at.strftime("%Y-%m-%d %H:%M:%S")
+            'createdAt': self.created_at.strftime('%B %-d, %Y at %-I:%M'),
+            'updatedAt': self.updated_at.strftime('%B %-d, %Y at %-I:%M')
         }

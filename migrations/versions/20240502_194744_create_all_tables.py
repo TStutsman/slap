@@ -1,8 +1,8 @@
-"""create all tables
+"""create_all_tables
 
-Revision ID: 8e5ff28f41b6
+Revision ID: 72a0b2960739
 Revises: 
-Create Date: 2024-04-24 15:50:20.946943
+Create Date: 2024-05-02 19:47:44.719983
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv('FLASK_ENV')
 SCHEMA = os.getenv('SCHEMA')
 
 # revision identifiers, used by Alembic.
-revision = '8e5ff28f41b6'
+revision = '72a0b2960739'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -69,8 +69,8 @@ def upgrade():
     sa.Column('author_id', sa.Integer(), nullable=True),
     sa.Column('channel_id', sa.Integer(), nullable=True),
     sa.Column('content', sa.String(length=500), nullable=False),
-    sa.Column('created_at', sa.Date(), nullable=True),
-    sa.Column('updated_at', sa.Date(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['author_id'], ['users.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
