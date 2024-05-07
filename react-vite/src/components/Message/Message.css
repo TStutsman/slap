@@ -26,8 +26,14 @@
 }
 
 .message .content {
-    width: 100%;
+    width: 90%;
     white-space: pre-wrap;
+}
+
+.message .content > p {
+    width: 100%;
+    margin: 0;
+    overflow-wrap: break-word;
 }
 
 .content-author-time {

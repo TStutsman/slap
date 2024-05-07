@@ -6,11 +6,15 @@ import OpenModalButton from '../OpenModalButton';
 import ChannelForm from "../ChannelForm";
 import './ChannelList.css';
 import ChannelListItem from "../ChannelListItem/ChannelListItem";
+import { useChannel } from "../../context/Channel";
 
 function ChannelList() {
     // Redux
     const dispatch = useDispatch();
     const channels = useSelector(state => state.channels)
+
+    // Context
+    const { setChannelId } = useChannel();
 
     // React
     const [showChannels, setShowChannels] = useState(true);
@@ -30,7 +34,7 @@ function ChannelList() {
                     <div id="channel-option-dd">
                         <OpenModalButton 
                             buttonText="Create"
-                            modalComponent={<ChannelForm />}
+                            modalComponent={<ChannelForm setChannelId={setChannelId} />}
                             onButtonClick={() => setDropdownOpen(false)}
                         />
                     </div>

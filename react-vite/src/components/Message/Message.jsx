@@ -5,12 +5,16 @@ import ConfirmDelete from '../ConfirmDelete';
 import ProfileDetails from '../ProfileDetails';
 import './Message.css';
 import { useSelector } from 'react-redux';
+import { useChannel } from '../../context/Channel';
 
 function Message({ user, message }) {
     const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";
 
     // Redux
     const sessionUser = useSelector(state => state.session.user);
+
+    // Context
+    const { channelId } = useChannel();
 
     // React
     const [hovered, setHovered] = useState(false);
@@ -115,7 +119,7 @@ function Message({ user, message }) {
                     <div className="message-option-dd" ref={dropdownRef}>
                         <OpenModalButton 
                             buttonText="Edit Message"
-                            modalComponent={<MessageInput sessionUser={sessionUser} edit={message}/>}
+                            modalComponent={<MessageInput sessionUser={sessionUser} edit={message} channelId={channelId}/>}
                             onButtonClick={() => setDropdownOpen(false)}
                         />
                         <OpenModalButton 

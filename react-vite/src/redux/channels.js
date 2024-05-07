@@ -1,11 +1,17 @@
 import Fetcher from "./fetcher";
 const api = new Fetcher('/api');
 
+import { channelSocket } from "../socket";
+import { Resock } from "./resock";
+
 const ADD_CHANNELS = 'channels/addChannels';
 const ADD_ONE_CHANNEL = 'channels/addOneChannel';
 const UPDATE_CHANNEL = 'channels/updateChannel';
 const DELETE_CHANNEL = 'channels/deleteChannel';
 const JOIN_CHANNEL = 'channels/joinChannel';
+
+// events
+const CHANNEL_DELETED = 'channels/channel_deleted'
 
 const addChannels = channels => ({
     type: ADD_CHANNELS,
@@ -83,6 +89,16 @@ export const joinChannelThunk = (channelId) => async dispatch => {
     dispatch(joinChannel(data));
 }
 
+export const initializeChannelResock = () => dispatch => {
+    const resock = Resock(channelSocket, 'channels', dispatch);
+
+    // Initialize socket event listeners
+    resock.addListeners(['channel_deleted']);
+
+    // return resock object
+    return resock;
+}
+
 const initial = { byId: null, allIds: [], joined: null }
 
 export default function channelsReducer(state = initial, action) {
@@ -121,6 +137,13 @@ export default function channelsReducer(state = initial, action) {
             const newState = { ...state, byId: {...state.byId, [action.channel.id]: action.channel} };
             newState.joined.add(action.channel.id);
             return newState;
+        }
+
+        case CHANNEL_DELETED: {
+            const allIds = state.allIds.filter(id => +id !== +action.payload.id);
+            delete state.byId[action.payload.id];
+            state.joined.delete(action.payload.id);
+            return { ...state, allIds };
         }
 
         default:

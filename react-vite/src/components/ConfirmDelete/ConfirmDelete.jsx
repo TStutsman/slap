@@ -1,5 +1,5 @@
 import { useModal } from "../../context/Modal";
-import { socket } from "../../socket";
+import { channelSocket, messageSocket } from "../../socket";
 import './ConfirmDelete.css';
 
 function ConfirmDelete({ type='message', resourceId }) {
@@ -10,9 +10,12 @@ function ConfirmDelete({ type='message', resourceId }) {
     const handleDelete = (e) => {
         e.preventDefault();
         if(type === 'channel') {
-            socket.emit('delete_channel', resourceId)
+            // removes the channel from the database
+            channelSocket.emit('delete_channel', resourceId);
+            // removes current users from the channel
+            messageSocket.emit('close_channel', resourceId);
         } else {
-            socket.emit('delete_message', resourceId);
+            messageSocket.emit('delete_message', resourceId);
         }
         closeModal();
     }

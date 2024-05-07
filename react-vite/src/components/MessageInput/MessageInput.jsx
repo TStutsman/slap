@@ -1,15 +1,13 @@
 import { useState } from 'react';
-import { socket } from '../../socket';
+import { messageSocket } from '../../socket';
 import './MessageInput.css';
 import { IoPaperPlaneSharp } from "react-icons/io5";
-import { FaPlus } from 'react-icons/fa6'
-import { useChannel } from '../../context/Channel';
+import { FaPlus } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../context/Modal';
 
-function MessageInput({ sessionUser, edit = null }) {
+function MessageInput({ sessionUser, edit = null, channelId }) {
     // Context
-    const { channelId } = useChannel();
     const { closeModal } = useModal();
 
     // Redux Store
@@ -32,7 +30,7 @@ function MessageInput({ sessionUser, edit = null }) {
 
         if(edit) message.id = edit.id;
 
-        socket.emit(emitEvent, message);
+        messageSocket.emit(emitEvent, message);
         if(!edit) setNewMessage("");
         else closeModal();
     }

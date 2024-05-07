@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useChannel } from '../../context/Channel';
 import { joinChannelThunk } from '../../redux/channels';
-import { socket } from '../../socket';
+import { channelSocket, messageSocket, socket } from '../../socket';
 import { FaAngleDown } from 'react-icons/fa6';
 import OpenModalButton from '../OpenModalButton';
 import MessageFeed from '../MessageFeed/MessageFeed';
@@ -29,10 +29,14 @@ function ChannelPanel() {
     useEffect(() => {
         if(sessionUser !== null) {
             socket.connect();
+            messageSocket.connect();
+            channelSocket.connect();
         }
 
         return () => {
             socket.disconnect();
+            messageSocket.disconnect();
+            channelSocket.disconnect();
         }
     }, [sessionUser]);
 
@@ -64,10 +68,10 @@ function ChannelPanel() {
                     />
                     <p>{currentChannel.numUsers} members</p>
                 </div>
-                <MessageFeed channelId={channelId}/>
+                <MessageFeed />
 
                 {joined ?
-                    <MessageInput sessionUser={sessionUser} />
+                    <MessageInput sessionUser={sessionUser} channelId={channelId} />
                     :
                     <div className='join-channel-panel'>
                         <div className='join-channel-wrapper'>

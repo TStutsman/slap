@@ -1,46 +1,68 @@
-from .channel import socketio
-from flask_socketio import emit, join_room, leave_room
-from app.models import db, Message, Channel
-from flask_login import current_user
+from flask_socketio import Namespace, emit, join_room, leave_room, close_room
+from app.models import db, Message
+
+class MessageNamespace(Namespace):
+
+    # Events for joining and leaving channels =================
+
+    def on_join_channel(self, channel_id):
+        print('user joined channel', channel_id)
+        join_room(channel_id)
+        messages = Message.query.filter_by(channel_id=channel_id).all()
+        by_id = { message.id:message.to_dict() for message in messages }
+        ordered_ids = [ message.id for message in messages ]
+        emit('load_messages', { 'byId': by_id, 'order': ordered_ids })
+
+    def on_leave_channel(self, channel_id):
+        leave_room(channel_id)
+
+    def on_close_channel(self, channel_id):
+        close_room(channel_id)
+
+    # ---------------------------------------------------------
 
 
-@socketio.on('new_message')
-def new_message(message):
-    new_message = Message(
+    # Events for message CRUD =================================
+
+    def on_new_message(self, message):
+        new_message = Message(
         author_id = message['authorId'],
         channel_id = message['channelId'],
         content = message['content']
-    )
+        )
 
-    db.session.add(new_message)
-    db.session.commit()
-    emit('message_broadcast', new_message.to_dict(), to=message['channelId'])
+        db.session.add(new_message)
+        db.session.commit()
+        
+        print(type(message['channelId']), message['channelId'])
+        emit('message_broadcast', new_message.to_dict(), to=message['channelId'])
 
-@socketio.on('edit_message')
-def update_message(message):
-    updated_message = Message.query.get(message['id'])
+    def on_edit_message(self, message):
+        updated_message = Message.query.get(message['id'])
 
-    if updated_message == None:
-        print(' === Couldnt find the message === ')
-        return
+        if updated_message == None:
+            print(' === Couldnt find the message === ')
+            return
 
-    channel_id = updated_message.channel_id
-    updated_message.content = message['content']
+        channel_id = updated_message.channel_id
+        updated_message.content = message['content']
 
-    db.session.commit()
-    
-    emit('update_broadcast', updated_message.to_dict(), to=channel_id)
+        db.session.commit()
 
-@socketio.on('delete_message')
-def delete_message(messageId):
-    to_delete = Message.query.get(messageId)
+        print(type(channel_id), channel_id)
+        emit('updated_broadcast', updated_message.to_dict(), to=channel_id)
 
-    if to_delete == None:
-        print(' === Couldnt find the message ===')
-        return
+    def on_delete_message(self, message_id):
+        to_delete = Message.query.get(message_id)
 
-    channel_id = to_delete.channel_id
+        if to_delete == None:
+            print(' === Couldnt find the message ===')
+            return
 
-    db.session.delete(to_delete)
-    db.session.commit()
-    emit('delete_broadcast', messageId, to=channel_id)
+        channel_id = to_delete.channel_id
+
+        db.session.delete(to_delete)
+        db.session.commit()
+
+        print(type(channel_id), channel_id)
+        emit('deleted_broadcast', message_id, to=channel_id)

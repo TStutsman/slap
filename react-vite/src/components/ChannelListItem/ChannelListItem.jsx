@@ -58,7 +58,7 @@ function ChannelListItem({ channel, joined }) {
                 <div className="channel-options-dd" ref={ddRef}>
                     <OpenModalButton 
                         buttonText="Edit Channel"
-                        modalComponent={<ChannelForm edit={channel}/>}
+                        modalComponent={<ChannelForm edit={channel} setChannelId={setChannelId}/>}
                         onButtonClick={() => setDropdownOpen(false)}
                     />
                     <OpenModalButton 
