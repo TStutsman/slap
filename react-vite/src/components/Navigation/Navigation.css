@@ -144,3 +144,29 @@ nav a {
   position: absolute;
   right: 10px;
 }
+
+#about-links {
+  position: absolute;
+  bottom: 0;
+}
+
+#about-links {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+#about-links a {
+  display: flex;
+  align-items: center;
+
+  margin: 0;
+  margin-left: 5px;
+  gap: 2px;
+
+  text-decoration: none;
+  font-size: 14px;
+}
+
+#about-links a:hover {
+  color: var(--blue-hover);
+}
