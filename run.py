@@ -8,8 +8,6 @@ cors_list = [] if environment == 'production' else [
     'http://localhost:8000', 
     'http://127.0.0.1:8000'
 ]
-
-print('========= cors list', cors_list, ' ============')
     
 socketio.init_app(app, manage_session=False, cors_allowed_origins=cors_list)
 

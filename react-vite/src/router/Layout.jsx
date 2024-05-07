@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, ModalProvider } from "../context/Modal";
-import { thunkAuthenticate } from "../redux/session";
-import Navigation from "../components/Navigation";
+import { Outlet } from "react-router-dom";
 import Landing from "../components/Landing";
 import Loading from "../components/Loading";
+import Navigation from "../components/Navigation";
 import { ChannelProvider } from "../context/Channel";
+import { Modal, ModalProvider } from "../context/Modal";
+import { thunkAuthenticate } from "../redux/session";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -21,13 +21,13 @@ export default function Layout() {
     <>
     { isLoaded ?
       <ModalProvider>
-        { sessionUser === null ? 
-          <Landing />
-          : 
+        { sessionUser !== null ?
           <ChannelProvider>
             <Navigation />
             { isLoaded && <Outlet /> }
           </ChannelProvider>
+          :
+          <Landing />
         }
         <Modal /> 
       </ModalProvider>

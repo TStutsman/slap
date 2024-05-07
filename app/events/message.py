@@ -1,4 +1,4 @@
-from flask_socketio import Namespace, send, emit, join_room, leave_room, close_room
+from flask_socketio import Namespace, emit, join_room, leave_room, close_room
 from app.models import db, Message
 
 class MessageNamespace(Namespace):
@@ -33,6 +33,8 @@ class MessageNamespace(Namespace):
 
         db.session.add(new_message)
         db.session.commit()
+        
+        print(type(message['channelId']), message['channelId'])
         emit('message_broadcast', new_message.to_dict(), to=message['channelId'])
 
     def on_edit_message(self, message):
@@ -46,9 +48,9 @@ class MessageNamespace(Namespace):
         updated_message.content = message['content']
 
         db.session.commit()
-        
-        room = str(channel_id)
-        emit('updated_broadcast', updated_message.to_dict(), to=room)
+
+        print(type(channel_id), channel_id)
+        emit('updated_broadcast', updated_message.to_dict(), to=channel_id)
 
     def on_delete_message(self, message_id):
         to_delete = Message.query.get(message_id)
@@ -62,5 +64,5 @@ class MessageNamespace(Namespace):
         db.session.delete(to_delete)
         db.session.commit()
 
-        room = str(channel_id)
-        emit('deleted_broadcast', message_id, to=room)
+        print(type(channel_id), channel_id)
+        emit('deleted_broadcast', message_id, to=channel_id)
