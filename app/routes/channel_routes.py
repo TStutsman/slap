@@ -3,8 +3,6 @@ from flask_login import login_required, current_user
 from app.models import db, Channel
 from app.forms import ChannelForm
 
-from flask_socketio import emit
-
 channels = Blueprint('channels', __name__)
 
 @channels.get('/')

@@ -11,7 +11,8 @@ const DELETE_CHANNEL = 'channels/deleteChannel';
 const JOIN_CHANNEL = 'channels/joinChannel';
 
 // events
-const CHANNEL_DELETED = 'channels/channel_deleted'
+const CHANNEL_UPDATE = 'channels/channel_broadcast';
+const CHANNEL_DELETED = 'channels/channel_deleted';
 
 const addChannels = channels => ({
     type: ADD_CHANNELS,
@@ -93,7 +94,7 @@ export const initializeChannelResock = () => dispatch => {
     const resock = Resock(channelSocket, 'channels', dispatch);
 
     // Initialize socket event listeners
-    resock.addListeners(['channel_deleted']);
+    resock.addListeners(['channel_broadcast', 'channel_deleted']);
 
     // return resock object
     return resock;
@@ -139,11 +140,25 @@ export default function channelsReducer(state = initial, action) {
             return newState;
         }
 
+        // ____ SOCKET EVENTS _____
+
         case CHANNEL_DELETED: {
             const allIds = state.allIds.filter(id => +id !== +action.payload.id);
             delete state.byId[action.payload.id];
             state.joined.delete(action.payload.id);
             return { ...state, allIds };
+        }
+
+        case CHANNEL_UPDATE: {
+            // if the channel doesn't exist, add id to allIds
+            if(!state.byId[action.payload.id]){
+                state.allIds.push(action.payload.id);
+            }
+            state.byId[action.payload.id] = action.payload;
+
+            // update the location of state in memory
+            // for useSelectors to rerender
+            return { ...state };
         }
 
         default:

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useModal } from "../../context/Modal";
 import { createNewChannelThunk, editChannelThunk } from '../../redux/channels';
+import { channelSocket } from "../../socket";
 import './ChannelForm.css'
 
 function ChannelForm({ edit=null, setChannelId }) {
@@ -50,14 +51,17 @@ function ChannelForm({ edit=null, setChannelId }) {
         }
 
         const response = await dispatch(thunk(newChannel));
-
+        
         if (response.errors) {
             setErrors(response.errors);
-
+            
             if (response.errors.name) setPageNum(1);
             return;
         }
         
+        // emit channel event to broadcast to other users
+        channelSocket.emit('channel_update', response.id);
+
         // Navigates the user to the newly created channel
         setChannelId(response.id);
 

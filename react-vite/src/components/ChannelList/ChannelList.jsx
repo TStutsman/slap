@@ -7,6 +7,7 @@ import ChannelForm from "../ChannelForm";
 import './ChannelList.css';
 import ChannelListItem from "../ChannelListItem/ChannelListItem";
 import { useChannel } from "../../context/Channel";
+import { initializeChannelResock } from "../../redux/channels";
 
 function ChannelList() {
     // Redux
@@ -22,6 +23,14 @@ function ChannelList() {
     
     useEffect(() => {
         dispatch(getAllChannelsThunk());
+
+        // Adds all the event listeners to redux
+        const channelsResock = dispatch(initializeChannelResock());
+
+        // On component unmount, remove socket event listeners
+        return () => {
+            channelsResock.removeListeners();
+        }
     }, [dispatch]);
 
     return (
