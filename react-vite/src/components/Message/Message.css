@@ -16,6 +16,7 @@
 .message > .profile-photo {
     height: 60px;
     min-width: 60px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
