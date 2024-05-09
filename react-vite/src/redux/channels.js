@@ -58,8 +58,8 @@ export const getWorkspaceChannelsThunk = workspaceId => async dispatch => {
     return data;
 }
 
-export const createNewChannelThunk = (channel) => async dispatch => {
-    const data = await api.post('/channels', channel);
+export const createNewChannelThunk = (workspaceId, channel) => async dispatch => {
+    const data = await api.post(`/workspaces/${workspaceId}/channels`, channel);
 
     // only run the dispatch if there wasn't an error
     if(!data.errors) dispatch(addOneChannel(data));

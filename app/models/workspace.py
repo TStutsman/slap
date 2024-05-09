@@ -7,6 +7,7 @@ class Workspace(db.Model):
         __table_args__ = { 'schema': SCHEMA }
 
     id = db.Column(db.Integer, primary_key=True)
+    creator_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'))
     name = db.Column(db.String(100), nullable=False, unique=True)
     icon_url = db.Column(db.String(255), nullable=False)
 
@@ -16,6 +17,7 @@ class Workspace(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'creatorId': self.creator_id,
             'name': self.name,
             'iconUrl': self.icon_url
         }

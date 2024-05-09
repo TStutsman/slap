@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
-from app.models import db, Workspace
-from app.forms import WorkspaceForm
+from app.models import db, Workspace, Channel, UserWorkspace
+from app.forms import WorkspaceForm, ChannelForm
 from app.aws import unique_filename, s3_upload_file
 
 workspaces = Blueprint('workspaces', __name__)
@@ -41,6 +41,64 @@ def get_workspace_channels(id):
         'joined': joined
     }
 
+@workspaces.post('/<int:id>/channels')
+@login_required
+def create_new_channel(id):
+    """
+    Creates a new Channel based off the input from the user through ChannelForm
+    """
+    form = ChannelForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not form.validate_on_submit():
+        return { 'errors': form.errors }, 400
+
+    new_channel = Channel(
+        workspace_id = id,
+        creator_id = current_user.id,
+        name = form.name.data,
+        description = form.description.data,
+        private = form.private.data
+    )
+
+    # adds the channel to 'channels' and to 'user_channels'
+    current_user.channels.append(new_channel)
+
+    db.session.commit()
+
+    return new_channel.to_dict(), 201
+
+@workspaces.get('/<int:id>/join')
+@login_required
+def add_user_to_workspace(id):
+    """
+    Adds a user to an existing workspace
+    """
+    workspace = Workspace.query.get(id)
+
+    current_user.workspaces.append(workspace)
+    db.session.commit()
+
+    return workspace.to_dict(), 200
+
+@workspaces.get('/<int:id>/leave')
+@login_required
+def remove_user_from_workspace(id):
+    """
+    Removes a user from a workspace
+    """
+    user_workspace = UserWorkspace.query.filter_by(user_id=current_user.id, workspace_id=id)
+
+    if user_workspace == None:
+        return { 'errors': "User couldn't be found in that workspace" }, 404
+
+    db.session.delete(user_workspace)
+    db.session.commit()
+
+    workspace = Workspace.query.get(id)
+
+    return workspace.to_dict(), 200
+
 @workspaces.post('/')
 @login_required
 def create_new_workspace():
@@ -64,6 +122,7 @@ def create_new_workspace():
         return
 
     workspace = Workspace(
+        creator_id = current_user.id,
         name = form.name.data,
         icon_url = upload['url']
     )
@@ -113,6 +172,9 @@ def delete_workspace(id):
 
     if workspace == None:
         return { 'server': 'No workspace found for that id'}, 404
+    
+    if workspace.creator_id != current_user.id:
+        return { 'errors': 'Unauthorized' }, 401
     
     db.session.delete(workspace)
     db.session.commit()

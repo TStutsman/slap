@@ -45,7 +45,7 @@ function ChannelList() {
                     <div id="channel-option-dd">
                         <OpenModalButton 
                             buttonText="Create"
-                            modalComponent={<ChannelForm setChannelId={setChannelId} />}
+                            modalComponent={<ChannelForm setChannelId={setChannelId} workSpaceId={workspaceId}/>}
                             onButtonClick={() => setDropdownOpen(false)}
                         />
                     </div>

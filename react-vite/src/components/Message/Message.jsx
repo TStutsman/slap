@@ -25,7 +25,7 @@ function Message({ user, message }) {
     // Element Reference
     const dropdownRef = useRef(null);
 
-    // Toggle the logout menu
+    // Toggle the message menu
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
         setDropdownOpen(!dropdownOpen);

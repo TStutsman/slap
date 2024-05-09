@@ -1,8 +1,11 @@
+import { useDispatch } from "react-redux";
+import { deleteWorkspaceThunk } from "../../redux/workspaces";
 import { useModal } from "../../context/Modal";
 import { channelSocket, messageSocket } from "../../socket";
 import './ConfirmDelete.css';
 
 function ConfirmDelete({ type='message', resourceId }) {
+    const dispatch = useDispatch();
 
     // Context
     const { closeModal } = useModal();
@@ -14,8 +17,10 @@ function ConfirmDelete({ type='message', resourceId }) {
             channelSocket.emit('delete_channel', resourceId);
             // removes current users from the channel
             messageSocket.emit('close_channel', resourceId);
-        } else {
+        } else if (type === 'message') {
             messageSocket.emit('delete_message', resourceId);
+        } else {
+            dispatch(deleteWorkspaceThunk(resourceId));
         }
         closeModal();
     }

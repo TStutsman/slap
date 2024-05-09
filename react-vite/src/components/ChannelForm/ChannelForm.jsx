@@ -5,7 +5,7 @@ import { createNewChannelThunk, editChannelThunk } from '../../redux/channels';
 import { channelSocket } from "../../socket";
 import './ChannelForm.css'
 
-function ChannelForm({ edit=null, setChannelId }) {
+function ChannelForm({ edit=null, setChannelId, workSpaceId }) {
     const dispatch = useDispatch();
 
     // Context
@@ -17,7 +17,10 @@ function ChannelForm({ edit=null, setChannelId }) {
     const [description, setDescription] = useState(edit?.description || "");
     const [errors, setErrors] = useState({});
 
-    const thunk = edit ? editChannelThunk : createNewChannelThunk;
+    // Here we dynamically choose the thunk we need
+    // the second option sets the workspaceId for us, and accepts the channel
+    // in order to perform identically to the edit thunk
+    const thunk = edit ? editChannelThunk : (channel) => createNewChannelThunk(workSpaceId, channel);
 
     useEffect(() => {
         setErrors(previous => {

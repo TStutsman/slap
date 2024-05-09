@@ -133,7 +133,6 @@ function WorkspaceForm({ edit = null, setWorkspaceId }) {
                             accept="image/*"
                             className="workspace-icon"
                             onChange={handleIconChoice}
-                            required
                         />
                         { errors.icon ? <p className="error">{errors.icon}</p> : null }
                     </label>
