@@ -50,6 +50,17 @@ export const getAllChannelsThunk = () => async dispatch => {
     dispatch(addChannels(data));
 }
 
+export const getWorkspaceChannelsThunk = workspaceId => async dispatch => {
+    const data = await api.get(`/workspaces/${workspaceId}/channels`);
+
+    if(data.server) {
+        return data;
+    }
+
+    dispatch(addChannels(data));
+    return data;
+}
+
 export const createNewChannelThunk = (channel) => async dispatch => {
     const data = await api.post('/channels', channel);
 

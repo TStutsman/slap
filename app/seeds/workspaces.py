@@ -5,7 +5,7 @@ def seed_workspaces():
     aa = Workspace(
         id = 1,
         name = 'App Academy',
-        icon_url = 'https://emoji.slack-edge.com/T03GU501J/appacademy/e0819e0d50ec9775.png'
+        icon_url = 'https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/aa_icon.png'
     )
 
     db.session.add(aa)

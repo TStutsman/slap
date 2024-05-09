@@ -17,5 +17,5 @@ class Workspace(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'icon_url': self.icon_url
+            'iconUrl': self.icon_url
         }

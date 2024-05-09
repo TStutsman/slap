@@ -1,0 +1,48 @@
+.workspace-wrapper {
+    position: relative;
+}
+
+.workspace {
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+
+    border-radius: 30px;
+    transition: border-radius .3s ease;
+}
+
+.workspace:hover {
+    border-radius: 18px;
+}
+
+.workspace::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: -10px;
+    height: 0px;
+    width: 0px;
+    border-radius: 0 4px 4px 0;
+    background-color: var(--lt-grey);
+
+    transition: 
+        height .2s ease,
+        width .2s ease;
+}
+
+.workspace:hover::before {
+    height: 20px;
+    width: 4px;
+}
+
+.workspace.selected::before {
+    top: 0;
+    height: 60px;
+    width: 4px;
+}
+
+.workspace > img {
+    object-fit: cover;
+    width: 60px;
+}

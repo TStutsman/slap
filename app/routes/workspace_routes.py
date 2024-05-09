@@ -20,6 +20,27 @@ def get_user_workspaces():
         'allIds': all_ids
     }
 
+@workspaces.get('/<int:id>/channels')
+@login_required
+def get_workspace_channels(id):
+    """
+    Returns all the channels in a given workspace
+    """
+    if id not in [ workspace.id for workspace in current_user.workspaces ]:
+        return { 'error': 'Unauthorized' }, 401
+
+    workspace = Workspace.query.get(id)
+
+    by_id = { channel.id: channel.to_dict() for channel in workspace.channels }
+    all_ids = [ channel.id for channel in workspace.channels ]
+    joined = [ channel.id for channel in workspace.channels if channel in current_user.channels ]
+
+    return {
+        'byId': by_id,
+        'allIds': all_ids,
+        'joined': joined
+    }
+
 @workspaces.post('/')
 @login_required
 def create_new_workspace():

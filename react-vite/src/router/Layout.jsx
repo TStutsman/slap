@@ -7,6 +7,7 @@ import Navigation from "../components/Navigation";
 import { ChannelProvider } from "../context/Channel";
 import { Modal, ModalProvider } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
+import { WorkspaceProvider } from "../context/Workspace";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -22,10 +23,12 @@ export default function Layout() {
     { isLoaded ?
       <ModalProvider>
         { sessionUser !== null ?
-          <ChannelProvider>
-            <Navigation />
-            { isLoaded && <Outlet /> }
-          </ChannelProvider>
+          <WorkspaceProvider>
+            <ChannelProvider>
+              <Navigation />
+              { isLoaded && <Outlet /> }
+            </ChannelProvider>
+          </WorkspaceProvider>
           :
           <Landing />
         }

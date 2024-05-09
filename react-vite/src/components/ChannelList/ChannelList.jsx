@@ -1,13 +1,14 @@
 import { FaCaretDown } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllChannelsThunk } from "../../redux/channels";
+import { getWorkspaceChannelsThunk } from "../../redux/channels";
 import OpenModalButton from '../OpenModalButton';
 import ChannelForm from "../ChannelForm";
 import './ChannelList.css';
 import ChannelListItem from "../ChannelListItem/ChannelListItem";
 import { useChannel } from "../../context/Channel";
 import { initializeChannelResock } from "../../redux/channels";
+import { useWorkspace } from "../../context/Workspace";
 
 function ChannelList() {
     // Redux
@@ -16,13 +17,14 @@ function ChannelList() {
 
     // Context
     const { setChannelId } = useChannel();
+    const { workspaceId } = useWorkspace();
 
     // React
     const [showChannels, setShowChannels] = useState(true);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     
     useEffect(() => {
-        dispatch(getAllChannelsThunk());
+        dispatch(getWorkspaceChannelsThunk(workspaceId));
 
         // Adds all the event listeners to redux
         const channelsResock = dispatch(initializeChannelResock());
@@ -31,7 +33,7 @@ function ChannelList() {
         return () => {
             channelsResock.removeListeners();
         }
-    }, [dispatch]);
+    }, [dispatch, workspaceId]);
 
     return (
         <div id="channel-list">
