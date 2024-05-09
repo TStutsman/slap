@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Workspace(db.Model):
     __tablename__ = 'workspaces'
@@ -11,7 +11,7 @@ class Workspace(db.Model):
     icon_url = db.Column(db.String(255), nullable=False)
 
     channels = db.relationship('Channel', back_populates='workspace')
-    # users = db.relationship('User', secondary=add_prefix_for_prod('user_workspaces'), back_populates='workspaces')
+    users = db.relationship('User', secondary=add_prefix_for_prod('user_workspaces'), back_populates='workspaces')
 
     def to_dict(self):
         return {
