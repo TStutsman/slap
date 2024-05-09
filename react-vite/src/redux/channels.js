@@ -43,7 +43,7 @@ export const getAllChannelsThunk = () => async dispatch => {
     const data = await api.get('/channels');
 
     // Error condition
-    if(data.server) {
+    if(data.errors) {
         return data;
     }
 
@@ -53,11 +53,8 @@ export const getAllChannelsThunk = () => async dispatch => {
 export const getWorkspaceChannelsThunk = workspaceId => async dispatch => {
     const data = await api.get(`/workspaces/${workspaceId}/channels`);
 
-    if(data.server) {
-        return data;
-    }
-
-    dispatch(addChannels(data));
+    if(!data.errors) dispatch(addChannels(data));
+    
     return data;
 }
 
@@ -75,7 +72,7 @@ export const editChannelThunk = (channel) => async dispatch => {
     const data = await api.put(`/channels/${channel.id}`, channel);
 
     // only run the dispatch if there wasn't an error
-    if(!data.server) dispatch(updateChannel(data));
+    if(!data.errors) dispatch(updateChannel(data));
 
     // always return the data (errors or not)
     return data;
@@ -84,7 +81,7 @@ export const editChannelThunk = (channel) => async dispatch => {
 export const deleteChannelThunk = (channelId) => async dispatch => {
     const data = await api.delete(`/channels/${channelId}`);
 
-    if(data.server) {
+    if(data.errors) {
         return data;
     }
 
@@ -94,7 +91,7 @@ export const deleteChannelThunk = (channelId) => async dispatch => {
 export const joinChannelThunk = (channelId) => async dispatch => {
     const data = await api.post(`/channels/${channelId}/join`);
 
-    if(data.server) {
+    if(data.errors) {
         return data
     }
 

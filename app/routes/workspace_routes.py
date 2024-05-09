@@ -48,7 +48,7 @@ def create_new_workspace():
     Creates a new workspace, and adds the current user to it
     """
     form = WorkspaceForm()
-    form['csrf_token'].data = request.cookies('csrf_token')
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
         return { 'errors': form.errors }, 400
@@ -59,13 +59,13 @@ def create_new_workspace():
 
     upload = s3_upload_file(icon)
 
-    if not 'errors' in upload:
+    if 'errors' in upload:
         print(upload['errors'])
         return
 
     workspace = Workspace(
         name = form.name.data,
-        icon_url = upload.url
+        icon_url = upload['url']
     )
 
     # adds the workspace to the session and the user's workspaces

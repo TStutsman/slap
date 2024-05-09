@@ -1,0 +1,139 @@
+.workspace-form {
+    box-sizing: border-box;
+    position: relative;
+
+    height: 300px;
+    width: 500px;
+
+    padding: 40px;
+
+    border: 1px solid #555;
+    border-radius: 8px;
+}
+
+.workspace-form h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.workspace-form label {
+    padding-left: 30px;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+.workspace-name {
+    display: block;
+
+    width: 85%;
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+
+    border-color: #212121;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+
+    color: #fff;
+    background-color: #3f3f3f;
+
+    font-size: 16px;
+
+    transition: border-color .2s ease;
+}
+
+.workspace-name {
+    width: 90%;
+    padding: 5px 10px;
+}
+
+.workspace-name:hover {
+    border-color: var(--white);
+}
+
+.workspace-name:focus {
+    outline: none;
+    border-color: var(--white);
+}
+
+.workspace-icon {
+    display: none;
+}
+
+.add-icon-btn {
+    cursor: pointer;
+    height: 60px;
+
+    margin-top: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px dashed var(--white);
+    border-radius: 4px;
+}
+
+.add-icon-btn:hover {
+    background-color: var(--black-2);
+}
+
+.input-image-container {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 40px;
+
+    height: 100px;
+    width: 100px;
+}
+
+.input-image-container > svg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.input-image-container > img {
+    object-fit: contain;
+    width: 100px;
+}
+
+.workspace-form p.error {
+    color: rgb(191, 23, 23);
+    font-size: 12px;
+    font-weight: 600;
+
+    margin-top: 2px;
+
+    padding-left: 30px;
+}
+
+.workspace-form-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+
+    padding: 15px 20px;
+
+    border: 1px solid #212121;
+    border-radius: 4px;
+
+    font-size: 16px;
+    color: var(--white);
+    background-color: var(--blue);
+
+    transition: background-color .3s ease;
+}
+
+.workspace-form-btn:hover {
+    background-color: var(--blue-hover);
+}
+
+.workspace-form-btn:active {
+    background-color: var(--blue);
+}

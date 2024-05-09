@@ -3,10 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserWorkspacesThunk } from '../../redux/workspaces';
 import { FaPlus } from 'react-icons/fa6';
 import Workspace from '../Workspace';
+import WorkspaceForm from '../WorkspaceForm';
 import './WorkspaceList.css';
+import { useWorkspace } from '../../context/Workspace';
+import { useModal } from '../../context/Modal';
 
 function WorkspaceList() {
     const dispatch = useDispatch();
+
+    // Context
+    const { setModalContent } = useModal();
+    const { setWorkspaceId } = useWorkspace();
 
     // Redux
     const workspaces = useSelector(state => state.workspaces);
@@ -23,7 +30,7 @@ function WorkspaceList() {
                 <Workspace key={id} workspace={workspace}/>
             ))}
 
-            <div className='new-workspace'>
+            <div className='new-workspace' onClick={() => setModalContent(<WorkspaceForm setWorkspaceId={setWorkspaceId}/>)}>
                 <FaPlus size={20}/>
             </div>
         </div>

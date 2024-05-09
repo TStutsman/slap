@@ -23,7 +23,7 @@ export default class Fetcher {
             const data = await response.json();
             return data;
         } else {
-            return { server: "Something went wrong. Please try again" }
+            return { errors: "Something went wrong. Please try again" }
         }
     }
 
@@ -38,7 +38,7 @@ export default class Fetcher {
             const data = await response.json();
             return data;
         } else {
-            return { server: "Something went wrong. Please try again" }
+            return { errors: "Something went wrong. Please try again" }
         }
     }
 
@@ -53,7 +53,7 @@ export default class Fetcher {
             const data = await response.json();
             return data;
         } else {
-            return { server: "Something went wrong. Please try again" }
+            return { errors: "Something went wrong. Please try again" }
         }
     }
 
@@ -66,7 +66,7 @@ export default class Fetcher {
             const data = await response.json();
             return data;
         } else {
-            return { server: "Something went wrong. Please try again" }
+            return { errors: "Something went wrong. Please try again" }
         }
     }
 }
