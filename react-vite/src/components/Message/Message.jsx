@@ -4,6 +4,7 @@ import MessageInput from '../MessageInput';
 import ConfirmDelete from '../ConfirmDelete';
 import ProfileDetails from '../ProfileDetails';
 import EmojiPicker from '../EmojiPicker';
+import Reaction from '../Reaction';
 import './Message.css';
 import { useSelector } from 'react-redux';
 import { useChannel } from '../../context/Channel';
@@ -133,10 +134,10 @@ function Message({ user, message }) {
                     }
                 </div>
                 <p>{message.content}</p>
-                <div>
+                <div className='message-reactions'>
                     { reactions.byId ? 
                         message.reactions.map(id => (
-                            <button key={id}>{reactions.byId[id] ? String.fromCodePoint(reactions.byId[id].emoji) : null }</button>
+                            <Reaction key={id} reaction={reactions.byId[id]} />
                         ))
                         :
                         null
