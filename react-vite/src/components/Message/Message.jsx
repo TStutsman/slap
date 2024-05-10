@@ -3,15 +3,18 @@ import OpenModalButton from '../OpenModalButton';
 import MessageInput from '../MessageInput';
 import ConfirmDelete from '../ConfirmDelete';
 import ProfileDetails from '../ProfileDetails';
+import EmojiPicker from '../EmojiPicker';
 import './Message.css';
 import { useSelector } from 'react-redux';
 import { useChannel } from '../../context/Channel';
+import { FaFaceSmile } from 'react-icons/fa6';
 
 function Message({ user, message }) {
     const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";
 
     // Redux
     const sessionUser = useSelector(state => state.session.user);
+    const reactions = useSelector(state => state.reactions);
 
     // Context
     const { channelId } = useChannel();
@@ -22,14 +25,22 @@ function Message({ user, message }) {
     const [profileHover, setProfileHover] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
 
+    const [emojiPicker, setEmojiPicker] = useState(false);
+
     // Element Reference
     const dropdownRef = useRef(null);
+    const emojiPickerRef = useRef(null);
 
     // Toggle the message menu
-    const toggleMenu = (e) => {
+    const toggleDropdown = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
         setDropdownOpen(!dropdownOpen);
     };
+
+    const toggleEmojiPicker = (e) => {
+        e.stopPropagation();
+        setEmojiPicker(!emojiPicker);
+    }
 
     // Close dropdown on click anywhere off-menu
     useEffect(() => {
@@ -45,6 +56,20 @@ function Message({ user, message }) {
 
         return () => document.removeEventListener("click", closeMenu);
     }, [dropdownOpen]);
+
+    useEffect(() => {
+        if (!emojiPicker) return;
+
+        const closeEmojiPicker = (e) => {
+        if (emojiPickerRef.current && !emojiPickerRef.current.contains(e.target)) {
+            setEmojiPicker(false);
+        }
+        };
+
+        document.addEventListener("click", closeEmojiPicker);
+
+        return () => document.removeEventListener("click", closeEmojiPicker);
+    }, [emojiPicker]);
 
     // Shows user profile when hovering user names
     useEffect(() => {
@@ -108,27 +133,43 @@ function Message({ user, message }) {
                     }
                 </div>
                 <p>{message.content}</p>
+                <div>
+                    { reactions.byId ? 
+                        message.reactions.map(id => (
+                            <button key={id}>{reactions.byId[id] ? String.fromCodePoint(reactions.byId[id].emoji) : null }</button>
+                        ))
+                        :
+                        null
+                    }
+                </div>
             </div>
-            {
-                sessionUser.id === user?.id &&
-                <button className={hovered ? 'message-controls visible' : 'message-controls'} onClick={toggleMenu}>
-                    ...
+            <div className={hovered ? 'message-controls visible' : 'message-controls'}>
+                <button onClick={toggleEmojiPicker}>
+                    <FaFaceSmile />
                 </button>
+                { sessionUser.id === user?.id &&
+                    <button className='ellipses' onClick={toggleDropdown}>
+                        ...
+                    </button>
+                }
+            </div>
+            { emojiPicker &&
+                <EmojiPicker emojiPickerRef={emojiPickerRef} setOpen={setEmojiPicker} messageId={message.id}/>
             }
             { dropdownOpen &&
-                    <div className="message-option-dd" ref={dropdownRef}>
-                        <OpenModalButton 
-                            buttonText="Edit Message"
-                            modalComponent={<MessageInput sessionUser={sessionUser} edit={message} channelId={channelId}/>}
-                            onButtonClick={() => setDropdownOpen(false)}
-                        />
-                        <OpenModalButton 
-                            buttonText="Delete Message"
-                            modalComponent={<ConfirmDelete type='message' resourceId={message.id}/>}
-                            onButtonClick={() => setDropdownOpen(false)}
-                        />
-                    </div>
-                }
+                <div className="message-option-dd" ref={dropdownRef}>
+                    <OpenModalButton 
+                        buttonText="Edit Message"
+                        modalComponent={<MessageInput sessionUser={sessionUser} edit={message} channelId={channelId}/>}
+                        onButtonClick={() => setDropdownOpen(false)}
+                    />
+                    <OpenModalButton 
+                        buttonText="Delete Message"
+                        modalComponent={<ConfirmDelete type='message' resourceId={message.id}/>}
+                        onButtonClick={() => setDropdownOpen(false)}
+                    />
+                </div>
+            }
         </div>
     );
 }

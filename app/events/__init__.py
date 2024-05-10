@@ -3,7 +3,7 @@ from flask_socketio import SocketIO
 from .message import MessageNamespace
 from .channel import ChannelNamespace
 
-socketio = SocketIO(logger=False, engineio_logger=False)
+socketio = SocketIO(logger=True, engineio_logger=True)
 
 socketio.on_namespace(MessageNamespace('/messages'))
 socketio.on_namespace(ChannelNamespace('/channels'))

@@ -10,13 +10,15 @@ import channelsReducer from "./channels";
 import usersReducer from "./users";
 import messagesReducer from "./messages";
 import workspacesReducer from "./workspaces";
+import reactionsReducer from "./reactions";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   channels: channelsReducer,
   users: usersReducer,
   messages: messagesReducer,
-  workspaces: workspacesReducer
+  workspaces: workspacesReducer,
+  reactions: reactionsReducer
 });
 
 let enhancer;
