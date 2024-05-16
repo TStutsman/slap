@@ -22,7 +22,8 @@ export const initializeMessageResock = () => dispatch => {
         'updated_broadcast',
         'deleted_broadcast',
         'load_reactions',
-        'reaction_broadcast'
+        'reaction_broadcast',
+        'reaction_update'
     ]);
 
     // return resock object

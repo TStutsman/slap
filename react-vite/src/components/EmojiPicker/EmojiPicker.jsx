@@ -2,10 +2,11 @@ import { emojiCodes } from '../../utils/emojiCodes';
 import { messageSocket } from '../../socket';
 import './EmojiPicker.css';
 
-function EmojiPicker({ emojiPickerRef, setOpen, messageId }) {
+function EmojiPicker({ emojiPickerRef, setOpen, messageId, userId }) {
 
     const addReaction = unicode => {
         const reaction = {
+            userId,
             messageId,
             emoji: unicode
         }

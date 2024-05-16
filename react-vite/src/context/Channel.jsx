@@ -4,7 +4,7 @@ import { messageSocket } from '../socket';
 const ChannelContext = createContext();
 
 export function ChannelProvider({ children }) {
-    const [ channelId, setChannelId ] = useState(localStorage.getItem('channelId') || 1);
+    const [ channelId, setChannelId ] = useState(+localStorage.getItem('channelId') || 1);
 
     // Joins the channel when the id changes
     // Joining a channel allows the user to listen

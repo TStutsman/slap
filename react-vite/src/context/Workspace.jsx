@@ -3,7 +3,7 @@ import { useState, useContext, createContext, useEffect } from 'react';
 const WorkspaceContext = createContext();
 
 export function WorkspaceProvider({ children }) {
-    const [ workspaceId, setWorkspaceId ] = useState(localStorage.getItem('workspaceId') || 1);
+    const [ workspaceId, setWorkspaceId ] = useState(+localStorage.getItem('workspaceId') || 1);
 
     useEffect(() => {
         localStorage.setItem('workspaceId', workspaceId);

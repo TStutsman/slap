@@ -20,5 +20,6 @@ class Reaction(db.Model):
             'id': self.id,
             'messageId': self.message_id,
             'emoji': self.emoji,
-            'quantity': self.quantity
+            'quantity': self.quantity,
+            'userIds': [user.id for user in self.users]
         }

@@ -137,7 +137,7 @@ function Message({ user, message }) {
                 <div className='message-reactions'>
                     { reactions.byId ? 
                         message.reactions.map(id => (
-                            <Reaction key={id} reaction={reactions.byId[id]} />
+                            <Reaction key={id} reaction={reactions.byId[id]} userId={sessionUser.id}/>
                         ))
                         :
                         null
@@ -155,7 +155,7 @@ function Message({ user, message }) {
                 }
             </div>
             { emojiPicker &&
-                <EmojiPicker emojiPickerRef={emojiPickerRef} setOpen={setEmojiPicker} messageId={message.id}/>
+                <EmojiPicker emojiPickerRef={emojiPickerRef} setOpen={setEmojiPicker} messageId={message.id} userId={sessionUser.id}/>
             }
             { dropdownOpen &&
                 <div className="message-option-dd" ref={dropdownRef}>
