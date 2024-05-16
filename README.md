@@ -21,7 +21,7 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
 - NPM
 - A version of Node.js >= 14 on your local machine
 - Python 3.9
-- PostgreSQL
+- PostgreSQL or SQLite3 in dev environment
 - An AWS S3 bucket
 
 **Installation**
@@ -45,7 +45,7 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
    ```
 
    ```bash
-   flask run
+   python run.py
 
 - Create your AWS user and bucket:
     - Create a bucket: (https://s3.console.aws.amazon.com/s3/home?region=us-east-1)
@@ -53,7 +53,7 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
     - Set up a security policy for your user: 'Attach existing policies directly' => 'Create Policy'
     - Click the `JSON` tab and set a policy.
 - Now update your **.env** with your `S3_BUCKET`, `S3_KEY`, `S3_SECRET`
-- Fire up your servers: `flask run` in root and `npm start` in `react-app`
+- Fire up your servers: `python run.py` in root and `npm run dev` in `react-app`
 
 ## Features
 1. **Authentication**
@@ -68,6 +68,14 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
    - Users can write a new message.
    - Users can view the messages in each channel they occupy.
    - Users can update or delete messages they have written.
+3. **Reactions**
+   - Users can choose emojis to react to a message.
+   - Users can view the reactions to all the messages in each channel they are in.
+   - Users can increment existing emoji, and remove their reactions.
+3. **Workspaces**
+   - Users can create new workspaces.
+   - Users can view the channels in workspaces they are in.
+   - Users can update or delete workspaces they have created.
 
 ## Authentication
 Mock Make provides a user-friendly authentication system allowing users to sign up for new accounts, log in, log out, and use a guest/demo login option for exploring the site without creating an account. Access to certain features such as orders, wish lists, and creating reviews is restricted to logged-in users.
@@ -78,10 +86,18 @@ Logged-in users can browse through channels that other users, and themselves hav
 ## Messages
 The messaging feature allows logged-in users to communicate within channels to other users who have joined that channel. Logged-in users can also edit messages they've written, view other users' messages, and delete their own messages if necessary.
 
+## Reactions
+Logged-in users can let other users know how they feel about messages using reactions. Logged-in users can also remove reactions they reacted, view other users' reactions, and increment reactions other users have already reacted.
+
+## Workspaces
+Logged-in users can create workspaces for groups and topics, so that all the channels created in that workspace are related. Logged-in users can also edit workspaces they created, and delete their created workspaces they no longer need.
+
 # Stack
  * React: https://react.dev/
  * Redux: https://redux.js.org/
  * Flask: https://flask.palletsprojects.com/en/2.3.x/
+ * Flask SocketIO: https://flask-socketio.readthedocs.io/en/latest/
+ * SocketIO: https://socket.io/
  * WTForms: https://wtforms.readthedocs.io/en/3.0.x/
  * SQAlchemy: https://www.sqlalchemy.org/
  * PostgreSQL: https://postgresql.org/
