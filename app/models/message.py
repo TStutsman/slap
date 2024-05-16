@@ -25,6 +25,7 @@ class Message(db.Model):
             'authorId': self.author_id,
             'channelId': self.channel_id,
             'content': self.content,
+            'reactions': [reaction.id for reaction in self.reactions],
             'createdAt': self.created_at.strftime('%B %-d, %Y at %-I:%M'),
             'updatedAt': self.updated_at.strftime('%B %-d, %Y at %-I:%M')
         }

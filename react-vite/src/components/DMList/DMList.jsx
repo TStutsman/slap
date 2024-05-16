@@ -8,7 +8,7 @@ import './DMList.css';
 function DMList() {
     const dispatch = useDispatch();
     const users = useSelector(state => state.users);
-    const [showDMs, setShowDMs] = useState(true);
+    const [showDMs, setShowDMs] = useState(false);
 
     useEffect(() => {
         dispatch(getAllUsersThunk());
@@ -25,7 +25,7 @@ function DMList() {
             </div>
             <div id="dm-list" onClick={() => alert("Feature coming soon!")}>
                 { showDMs && Object.entries(users.byId).map(([id, user]) => (
-                    <NavLink key={id} to="/">{user.firstName} {user.lastName}</NavLink>
+                    <NavLink key={id} to="/" className='dm-list-item'>{user.statusEmoji} {user.firstName} {user.lastName}</NavLink>
                 ))}
             </div>
         </div>

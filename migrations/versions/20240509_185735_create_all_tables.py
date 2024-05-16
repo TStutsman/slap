@@ -1,8 +1,8 @@
 """create_all_tables
 
-Revision ID: 72a0b2960739
+Revision ID: f39917df9746
 Revises: 
-Create Date: 2024-05-02 19:47:44.719983
+Create Date: 2024-05-09 18:57:35.199278
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv('FLASK_ENV')
 SCHEMA = os.getenv('SCHEMA')
 
 # revision identifiers, used by Alembic.
-revision = '72a0b2960739'
+revision = 'f39917df9746'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,8 +39,10 @@ def upgrade():
     )
     op.create_table('workspaces',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('creator_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('icon_url', sa.String(length=255), nullable=False),
+    sa.ForeignKeyConstraint(['creator_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )

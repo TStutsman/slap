@@ -7,3 +7,28 @@
 #dm-list a {
     margin-bottom: 5px;
 }
+
+.dm-list-item {
+    position: relative;
+    width: 100%;
+
+    padding: 2px 5px;
+    border-radius: 4px;
+
+    font-size: 15px;
+    font-weight: 200;
+
+    cursor: pointer;
+
+    transition: background-color .2s ease, margin-left .3s ease-out;
+}
+
+.dm-list-item:hover:not(.selected) {
+    margin-left: 2px;
+    background-color: var(--black);
+}
+
+.dm-list-item.selected {
+    font-weight: 600;
+    background-color: var(--black-2);
+}

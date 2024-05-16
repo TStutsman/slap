@@ -9,22 +9,26 @@ import sessionReducer from "./session";
 import channelsReducer from "./channels";
 import usersReducer from "./users";
 import messagesReducer from "./messages";
+import workspacesReducer from "./workspaces";
+import reactionsReducer from "./reactions";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   channels: channelsReducer,
   users: usersReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  workspaces: workspacesReducer,
+  reactions: reactionsReducer
 });
 
 let enhancer;
 if (import.meta.env.MODE === "production") {
   enhancer = applyMiddleware(thunk);
 } else {
-  // const logger = (await import("redux-logger")).default;
+  const logger = (await import("redux-logger")).default;
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  enhancer = composeEnhancers(applyMiddleware(thunk/** , logger*/));
+  enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
 const configureStore = (preloadedState) => {

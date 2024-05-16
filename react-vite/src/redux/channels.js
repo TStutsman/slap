@@ -11,7 +11,8 @@ const DELETE_CHANNEL = 'channels/deleteChannel';
 const JOIN_CHANNEL = 'channels/joinChannel';
 
 // events
-const CHANNEL_DELETED = 'channels/channel_deleted'
+const CHANNEL_UPDATE = 'channels/channel_broadcast';
+const CHANNEL_DELETED = 'channels/channel_deleted';
 
 const addChannels = channels => ({
     type: ADD_CHANNELS,
@@ -42,15 +43,23 @@ export const getAllChannelsThunk = () => async dispatch => {
     const data = await api.get('/channels');
 
     // Error condition
-    if(data.server) {
+    if(data.errors) {
         return data;
     }
 
     dispatch(addChannels(data));
 }
 
-export const createNewChannelThunk = (channel) => async dispatch => {
-    const data = await api.post('/channels', channel);
+export const getWorkspaceChannelsThunk = workspaceId => async dispatch => {
+    const data = await api.get(`/workspaces/${workspaceId}/channels`);
+
+    if(!data.errors) dispatch(addChannels(data));
+    
+    return data;
+}
+
+export const createNewChannelThunk = (workspaceId, channel) => async dispatch => {
+    const data = await api.post(`/workspaces/${workspaceId}/channels`, channel);
 
     // only run the dispatch if there wasn't an error
     if(!data.errors) dispatch(addOneChannel(data));
@@ -63,7 +72,7 @@ export const editChannelThunk = (channel) => async dispatch => {
     const data = await api.put(`/channels/${channel.id}`, channel);
 
     // only run the dispatch if there wasn't an error
-    if(!data.server) dispatch(updateChannel(data));
+    if(!data.errors) dispatch(updateChannel(data));
 
     // always return the data (errors or not)
     return data;
@@ -72,7 +81,7 @@ export const editChannelThunk = (channel) => async dispatch => {
 export const deleteChannelThunk = (channelId) => async dispatch => {
     const data = await api.delete(`/channels/${channelId}`);
 
-    if(data.server) {
+    if(data.errors) {
         return data;
     }
 
@@ -82,7 +91,7 @@ export const deleteChannelThunk = (channelId) => async dispatch => {
 export const joinChannelThunk = (channelId) => async dispatch => {
     const data = await api.post(`/channels/${channelId}/join`);
 
-    if(data.server) {
+    if(data.errors) {
         return data
     }
 
@@ -93,7 +102,7 @@ export const initializeChannelResock = () => dispatch => {
     const resock = Resock(channelSocket, 'channels', dispatch);
 
     // Initialize socket event listeners
-    resock.addListeners(['channel_deleted']);
+    resock.addListeners(['channel_broadcast', 'channel_deleted']);
 
     // return resock object
     return resock;
@@ -139,11 +148,25 @@ export default function channelsReducer(state = initial, action) {
             return newState;
         }
 
+        // ____ SOCKET EVENTS _____
+
         case CHANNEL_DELETED: {
             const allIds = state.allIds.filter(id => +id !== +action.payload.id);
             delete state.byId[action.payload.id];
             state.joined.delete(action.payload.id);
             return { ...state, allIds };
+        }
+
+        case CHANNEL_UPDATE: {
+            // if the channel doesn't exist, add id to allIds
+            if(!state.byId[action.payload.id]){
+                state.allIds.push(action.payload.id);
+            }
+            state.byId[action.payload.id] = action.payload;
+
+            // update the location of state in memory
+            // for useSelectors to rerender
+            return { ...state };
         }
 
         default:

@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { initializeMessageResock } from "../../redux/messages";
-import { initializeChannelResock } from '../../redux/channels';
 import { socket } from "../../socket";
 import Message from "../Message";
 
@@ -26,12 +25,10 @@ function MessageFeed() {
     useEffect(() => {
         // Adds all the event listeners to redux
         const messagesResock =  dispatch(initializeMessageResock());
-        const channelsResock = dispatch(initializeChannelResock());
 
         // On component unmount, remove socket event listeners
         return () => {
             messagesResock.removeListeners();
-            channelsResock.removeListeners();
         }
     }, [dispatch, setModalContent]);
 

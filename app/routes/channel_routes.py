@@ -3,8 +3,6 @@ from flask_login import login_required, current_user
 from app.models import db, Channel
 from app.forms import ChannelForm
 
-from flask_socketio import emit
-
 channels = Blueprint('channels', __name__)
 
 @channels.get('/')
@@ -42,33 +40,6 @@ def get_channel_messages(id):
         "byId": by_id, 
         "allIds": all_ids
     }
-
-@channels.post('/')
-@login_required
-def create_new_channel():
-    """
-    Creates a new Channel based off the input from the user through ChannelForm
-    """
-    form = ChannelForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if not form.validate_on_submit():
-        return { 'errors': form.errors }, 400
-
-    new_channel = Channel(
-        workspace_id = 1,
-        creator_id = current_user.id,
-        name = form.name.data,
-        description = form.description.data,
-        private = form.private.data
-    )
-
-    # adds the channel to 'channels' and to 'user_channels'
-    current_user.channels.append(new_channel)
-
-    db.session.commit()
-
-    return new_channel.to_dict(), 201
 
 @channels.put('/<int:id>')
 @login_required

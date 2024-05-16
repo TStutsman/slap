@@ -5,10 +5,12 @@ import OpenModalButton from '../OpenModalButton';
 import ChannelForm from "../ChannelForm";
 import ConfirmDelete from '../ConfirmDelete';
 import './ChannelListItem.css';
+import { useWorkspace } from "../../context/Workspace";
 
 function ChannelListItem({ channel, joined }) {
     // Context
     const { channelId, setChannelId } = useChannel();
+    const { workSpaceId } = useWorkspace();
 
     // Redux
     const sessionUser = useSelector(state => state.session.user);
@@ -58,7 +60,7 @@ function ChannelListItem({ channel, joined }) {
                 <div className="channel-options-dd" ref={ddRef}>
                     <OpenModalButton 
                         buttonText="Edit Channel"
-                        modalComponent={<ChannelForm edit={channel} setChannelId={setChannelId}/>}
+                        modalComponent={<ChannelForm edit={channel} setChannelId={setChannelId} workSpaceId={workSpaceId}/>}
                         onButtonClick={() => setDropdownOpen(false)}
                     />
                     <OpenModalButton 

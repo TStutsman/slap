@@ -8,11 +8,23 @@ const MESSAGE_BROADCAST = 'messages/message_broadcast';
 const UPDATE_BROADCAST = 'messages/updated_broadcast';
 const DELETE_BROADCAST = 'messages/deleted_broadcast';
 
+const ADD_MESSAGE_REACTION = 'messages/addReaction';
+
 export const initializeMessageResock = () => dispatch => {
     const resock = Resock(messageSocket, 'messages', dispatch);
 
     // Initialize socket event listeners
-    resock.addListeners(['connect', 'disconnect', 'load_messages', 'message_broadcast', 'updated_broadcast', 'deleted_broadcast']);
+    resock.addListeners([
+        'connect',
+        'disconnect',
+        'load_messages',
+        'message_broadcast',
+        'updated_broadcast',
+        'deleted_broadcast',
+        'load_reactions',
+        'reaction_broadcast',
+        'reaction_update'
+    ]);
 
     // return resock object
     return resock;
@@ -45,6 +57,12 @@ export default function messagesReducer(state = initialState, action) {
             delete state.byId[action.payload]
             return { ...state, order }
         }
+
+        case ADD_MESSAGE_REACTION: {
+            state.byId[action.payload.messageId].reactions = [...state.byId[action.payload.messageId].reactions, action.payload.id];
+            return { ...state }
+        }
+
         default:
             return state;
     }

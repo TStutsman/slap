@@ -4,6 +4,7 @@ from .workspaces import seed_workspaces, undo_workspaces
 from .channels import seed_channels, undo_channels
 from .messages import seed_messages, undo_messages
 from .user_channels import seed_user_channels, undo_user_channels
+from .user_workspaces import seed_user_workspaces, undo_user_workspaces
 
 from app.models.db import environment
 
@@ -23,10 +24,12 @@ def seed():
         undo_messages()
         undo_user_channels()
         undo_channels()
+        undo_user_workspaces()
         undo_workspaces()
         undo_users()
     seed_users()
     seed_workspaces()
+    seed_user_workspaces()
     seed_channels()
     seed_user_channels()
     seed_messages()
@@ -39,6 +42,7 @@ def undo():
     undo_messages()
     undo_user_channels()
     undo_channels()
+    undo_user_workspaces()
     undo_workspaces()
     undo_users()
     # Add other undo functions here
