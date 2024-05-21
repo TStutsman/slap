@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import User, db
+from app.models import User, db, Workspace
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -60,6 +60,10 @@ def sign_up():
             first_name=form.data['firstName'],
             last_name=form.data['lastName']
         )
+        # Add user to default workspace (TODO: change when there is support for 0 workspaces)
+        default_workspace = Workspace.query.get(1)
+        user.workspaces.append(default_workspace)
+        
         db.session.add(user)
         db.session.commit()
         login_user(user)

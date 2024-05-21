@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
+import Loading from "../Loading";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -13,6 +14,7 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -25,6 +27,7 @@ function SignupFormModal() {
       });
     }
 
+    setLoading(true);
     const serverResponse = await dispatch(
       thunkSignup({
         email,
@@ -35,6 +38,7 @@ function SignupFormModal() {
       })
     );
 
+    setLoading(false);
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
@@ -97,6 +101,10 @@ function SignupFormModal() {
 
   return (
     <div className="signup-modal">
+      { loading ?
+        <Loading />
+      :
+      <>
       <h1>Sign Up</h1>
       {errors.server && <p className="error">{errors.server}</p>}
       <form onSubmit={handleSubmit}>
@@ -162,6 +170,8 @@ function SignupFormModal() {
         {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
         <button type="submit" disabled={!!Object.keys(errors).length}>Sign Up</button>
       </form>
+      </>
+      }
     </div>
   );
 }

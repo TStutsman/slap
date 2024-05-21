@@ -51,6 +51,8 @@ function Profile() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
+    localStorage.removeItem('workspaceId');
+    localStorage.removeItem('channelId');
     setShowMenu(false);
   };
 
