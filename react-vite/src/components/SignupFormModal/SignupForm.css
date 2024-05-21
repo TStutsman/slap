@@ -83,3 +83,17 @@
     background-color: #5f5f5f;
     color: #a6a6a6;
 }
+
+.signup-modal #loading-page {
+    width: 200px;
+    height: 100px;
+    justify-self: center;
+}
+
+.signup-modal #loading-page h1 {
+    margin-bottom: 0;
+}
+
+.signup-modal #loading-page p {
+    width: 15px;
+}

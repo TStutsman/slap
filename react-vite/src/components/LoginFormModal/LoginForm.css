@@ -99,3 +99,17 @@
     color: #9ad0f7;
     background-color: var(--dk-grey);
 }
+
+.login-modal #loading-page {
+    width: 200px;
+    height: 100px;
+    justify-self: center;
+}
+
+.login-modal #loading-page h1 {
+    margin-bottom: 0;
+}
+
+.login-modal #loading-page p {
+    width: 15px;
+}
