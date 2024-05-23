@@ -78,7 +78,7 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
    - Users can update or delete workspaces they have created.
 
 ## Authentication
-Mock Make provides a user-friendly authentication system allowing users to sign up for new accounts, log in, log out, and use a guest/demo login option for exploring the site without creating an account. Access to certain features such as orders, wish lists, and creating reviews is restricted to logged-in users.
+Slap provides a user-friendly authentication system allowing users to sign up for new accounts, log in, log out, and use a guest/demo login option for exploring the site without creating an account. Access to certain features such as orders, wish lists, and creating reviews is restricted to logged-in users.
 
 ## Channels
 Logged-in users can browse through channels that other users, and themselves have created. Logged-in users can create new product channels, edit their channels' names or descriptions, and delete their own, or leave channels they don't need. Logged-in users can view public channels to find new channels they want to join.
