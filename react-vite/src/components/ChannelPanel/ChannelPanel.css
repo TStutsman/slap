@@ -141,3 +141,11 @@
 .join-channel-options > button:last-child:hover {
     background-color: var(--dk-green-hover);
 }
+
+@media (width <= 500px) {
+    #channel-panel {
+        position: absolute;
+        z-index: -2;
+        width: 100vw;
+    }
+}

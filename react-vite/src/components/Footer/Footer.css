@@ -1,0 +1,9 @@
+#mobile-footer {
+    display: none;
+}
+
+@media (width <= 500px) {
+    #mobile-footer {
+        display: block;
+    }
+}

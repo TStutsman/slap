@@ -174,3 +174,10 @@ nav a {
 #about-links a:hover {
   color: var(--blue-hover);
 }
+
+@media (width <= 500px) {
+  nav {
+    box-sizing: border-box;
+    width: 100vw;
+  }
+}

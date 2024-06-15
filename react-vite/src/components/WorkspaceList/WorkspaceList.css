@@ -7,6 +7,8 @@
     box-sizing: border-box;
     width: 80px;
     padding: 10px;
+
+    background-color: var(--black-2);
 }
 
 .new-workspace {
@@ -31,4 +33,10 @@
 .new-workspace:hover {
     color: var(--white);
     background-color: var(--black-2);
+}
+
+@media (width <= 500px) {
+    #workspace-list {
+        display: none;
+    }
 }
