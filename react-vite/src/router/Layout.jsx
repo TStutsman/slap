@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import Landing from "@components/Landing";
-import Loading from "@components/Loading";
-import Navigation from "@components/Navigation";
+import Landing from "@components/views/Landing";
+import Loading from "@components/views/Loading";
+import Navigation from "@components/navigation/Navigation";
 import { ChannelProvider } from "@context/Channel";
 import { Modal, ModalProvider } from "@context/Modal";
 import { thunkAuthenticate } from "@redux/session";

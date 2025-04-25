@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { useChannel } from "@context/Channel";
 import { useState, useEffect, useRef } from "react";
-import OpenModalButton from './OpenModalButton';
-import ChannelForm from "./ChannelForm";
-import ConfirmDelete from './ConfirmDelete';
+import OpenModalButton from '../OpenModalButton';
+import ChannelForm from "../forms/ChannelForm";
+import ConfirmDelete from '../ConfirmDelete';
 import './ChannelListItem.css';
 import { useWorkspace } from "@context/Workspace";
 

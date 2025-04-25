@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "@context/Modal";
 import { thunkSignup } from "@redux/session";
-import Loading from "./Loading";
+import Loading from "@components/views/Loading";
 import "./SignupForm.css";
 
 function SignupFormModal() {

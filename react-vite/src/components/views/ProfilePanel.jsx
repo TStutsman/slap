@@ -74,11 +74,11 @@ function ProfilePanel({ user }) {
                     { image ? 
                         <img src={tempUrl || defaultPhoto} alt="" />
                         :
-                        <img src={user.profilePhotoUrl || defaultPhoto} alt="" />
+                        <img src={user?.profilePhotoUrl || defaultPhoto} alt="" />
                     }
                     <form ref={formRef} encType='multipart/form-data'>
                         <label>
-                            { !image && <div className='upload-profile-photo'>{ user.profilePhotoUrl ? 'Change Photo' : 'Upload Photo' }</div>}
+                            { !image && <div className='upload-profile-photo'>{ user?.profilePhotoUrl ? 'Change Photo' : 'Upload Photo' }</div>}
                             <input
                                 type="file"
                                 accept='image/*'
@@ -96,10 +96,10 @@ function ProfilePanel({ user }) {
             </div>
 
             <div id='profile-panel-info'>
-                <h2>{user.firstName} {user.lastName}</h2>
+                <h2>{user?.firstName} {user?.lastName}</h2>
                 <div className={'profile-info-status' + (editing ? ' edit' : '')}>
-                    <p>{user.statusEmoji}</p>
-                    <p>{user.statusString}</p>
+                    <p>{user?.statusEmoji}</p>
+                    <p>{user?.statusString}</p>
                     <FaPencil onClick={() => setEditing(!editing)}/>
                 </div>
                 { editing &&
@@ -125,7 +125,7 @@ function ProfilePanel({ user }) {
                     </div>
                     <div className='contact-details-text'>
                         <h6>Email address</h6>
-                        <p>{user.email}</p>
+                        <p>{user?.email}</p>
                     </div>
                 </div>
             </div>

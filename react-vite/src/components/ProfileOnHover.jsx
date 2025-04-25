@@ -1,4 +1,4 @@
-import './ProfileDetails.css';
+import './ProfileOnHover.css';
 
 function ProfileDetails({ user }) {
     const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";
@@ -6,7 +6,7 @@ function ProfileDetails({ user }) {
     return (
         <div className='profile-details'>
             <div className='profile-photo'>
-                <img src={user.profilePhotoUrl || defaultPhoto} alt="profile-photo" />
+                <img src={user?.profilePhotoUrl || defaultPhoto} alt="profile-photo" />
             </div>
 
             <div className='profile-text'>

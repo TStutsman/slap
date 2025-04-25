@@ -6,7 +6,7 @@ import ConfirmDelete from './ConfirmDelete';
 import EmojiPicker from './EmojiPicker';
 import MessageInput from './MessageInput';
 import OpenModalButton from './OpenModalButton';
-import ProfileDetails from './ProfileDetails';
+import ProfileDetails from './ProfileOnHover';
 import Reaction from './Reaction';
 import './Message.css';
 
