@@ -4,9 +4,9 @@ import { getWorkspaceChannelsThunk, initializeChannelResock } from "@redux/chann
 import { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa6";
 import { useDispatch, useSelector } from 'react-redux';
-import ChannelForm from "../ChannelForm";
-import ChannelListItem from "../ChannelListItem";
-import OpenModalButton from '../OpenModalButton';
+import ChannelForm from "./ChannelForm";
+import ChannelListItem from "./ChannelListItem";
+import OpenModalButton from './OpenModalButton';
 import './ChannelList.css';
 
 function ChannelList() {

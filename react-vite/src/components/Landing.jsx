@@ -1,6 +1,6 @@
-import LoginFormModal from '../LoginFormModal';
-import OpenModalButton from '../OpenModalButton';
-import SignupFormModal from '../SignupFormModal';
+import LoginFormModal from './LoginFormModal';
+import OpenModalButton from './OpenModalButton';
+import SignupFormModal from './SignupFormModal';
 import { Modal } from '@context/Modal';
 import './Landing.css';
 

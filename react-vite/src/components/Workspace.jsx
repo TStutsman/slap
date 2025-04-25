@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useWorkspace } from '@context/Workspace';
-import OpenModalButton from '../OpenModalButton';
-import WorkspaceForm from '../WorkspaceForm';
-import ConfirmDelete from '../ConfirmDelete';
+import OpenModalButton from './OpenModalButton';
+import WorkspaceForm from './WorkspaceForm';
+import ConfirmDelete from './ConfirmDelete';
 import './Workspace.css';
 import { useSelector } from 'react-redux';
 

@@ -1,7 +1,7 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 import Profile from "./Profile";
-import ChannelList from "../ChannelList";
-import WorkspaceList from '../WorkspaceList';
+import ChannelList from "./ChannelList";
+import WorkspaceList from './WorkspaceList';
 import "./Navigation.css";
 
 function Navigation() {

@@ -4,11 +4,11 @@ import { joinChannelThunk } from '@redux/channels';
 import { useEffect, useState } from 'react';
 import { FaAngleDown } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
-import ChannelDetails from '../ChannelDetails';
-import MessageFeed from '../MessageFeed';
-import MessageInput from '../MessageInput';
-import OpenModalButton from '../OpenModalButton';
-import ProfilePanel from '../ProfilePanel';
+import ChannelDetails from './ChannelDetails';
+import MessageFeed from './MessageFeed';
+import MessageInput from './MessageInput';
+import OpenModalButton from './OpenModalButton';
+import ProfilePanel from './ProfilePanel';
 import './ChannelPanel.css';
 
 function ChannelPanel() {

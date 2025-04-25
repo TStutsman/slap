@@ -2,12 +2,12 @@ import { useChannel } from '@context/Channel';
 import { useEffect, useRef, useState } from 'react';
 import { FaFaceSmile } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
-import ConfirmDelete from '../ConfirmDelete';
-import EmojiPicker from '../EmojiPicker';
-import MessageInput from '../MessageInput';
-import OpenModalButton from '../OpenModalButton';
-import ProfileDetails from '../ProfileDetails';
-import Reaction from '../Reaction';
+import ConfirmDelete from './ConfirmDelete';
+import EmojiPicker from './EmojiPicker';
+import MessageInput from './MessageInput';
+import OpenModalButton from './OpenModalButton';
+import ProfileDetails from './ProfileDetails';
+import Reaction from './Reaction';
 import './Message.css';
 
 function Message({ user, message }) {
