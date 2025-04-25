@@ -1,4 +1,4 @@
-import { messageSocket } from '../../socket';
+import { messageSocket } from '@/socket';
 import './Reaction.css';
 
 function Reaction({ reaction, userId }) {

@@ -1,7 +1,7 @@
+import { useModal } from "@context/Modal";
+import { thunkLogin } from "@redux/session";
 import { useState } from "react";
-import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
 import Loading from '../Loading';
 import "./LoginForm.css";
 

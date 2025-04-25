@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
-import { useModal } from "../../context/Modal";
-import { createWorkspaceThunk, editWorkspaceThunk } from '../../redux/workspaces';
-import { formDataFromObject } from '../../utils/formDataUtils';
+import { useModal } from "@context/Modal";
+import { createWorkspaceThunk, editWorkspaceThunk } from '@redux/workspaces';
+import { formDataFromObject } from '@utils/formDataUtils';
 import { FaPlus, FaXmark } from 'react-icons/fa6';
 import './WorkspaceForm.css';
 

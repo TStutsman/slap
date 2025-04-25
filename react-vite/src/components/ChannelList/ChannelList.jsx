@@ -1,14 +1,13 @@
+import { useChannel } from "@context/Channel";
+import { useWorkspace } from "@context/Workspace";
+import { getWorkspaceChannelsThunk, initializeChannelResock } from "@redux/channels";
+import { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa6";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { getWorkspaceChannelsThunk } from "../../redux/channels";
-import OpenModalButton from '../OpenModalButton';
+import { useDispatch, useSelector } from 'react-redux';
 import ChannelForm from "../ChannelForm";
+import ChannelListItem from "../ChannelListItem";
+import OpenModalButton from '../OpenModalButton';
 import './ChannelList.css';
-import ChannelListItem from "../ChannelListItem/ChannelListItem";
-import { useChannel } from "../../context/Channel";
-import { initializeChannelResock } from "../../redux/channels";
-import { useWorkspace } from "../../context/Workspace";
 
 function ChannelList() {
     // Redux

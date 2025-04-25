@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import OpenModalButton from '../OpenModalButton';
-import MessageInput from '../MessageInput';
+import { useChannel } from '@context/Channel';
+import { useEffect, useRef, useState } from 'react';
+import { FaFaceSmile } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
 import ConfirmDelete from '../ConfirmDelete';
-import ProfileDetails from '../ProfileDetails';
 import EmojiPicker from '../EmojiPicker';
+import MessageInput from '../MessageInput';
+import OpenModalButton from '../OpenModalButton';
+import ProfileDetails from '../ProfileDetails';
 import Reaction from '../Reaction';
 import './Message.css';
-import { useSelector } from 'react-redux';
-import { useChannel } from '../../context/Channel';
-import { FaFaceSmile } from 'react-icons/fa6';
 
 function Message({ user, message }) {
     const defaultPhoto = "https://slap-messaging-image-bucket.s3.us-east-2.amazonaws.com/profile_default.png";

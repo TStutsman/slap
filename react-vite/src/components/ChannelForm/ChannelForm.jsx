@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
-import { useModal } from "../../context/Modal";
-import { createNewChannelThunk, editChannelThunk } from '../../redux/channels';
-import { channelSocket } from "../../socket";
+import { useModal } from "@context/Modal";
+import { createNewChannelThunk, editChannelThunk } from '@redux/channels';
+import { channelSocket } from "@/socket";
 import './ChannelForm.css'
 
 function ChannelForm({ edit=null, setChannelId, workSpaceId }) {

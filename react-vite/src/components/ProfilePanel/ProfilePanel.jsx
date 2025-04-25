@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaPencil, FaRegEnvelope } from 'react-icons/fa6';
-import { updateProfileThunk, updateProfilePhotoThunk } from '../../redux/users';
+import { updateProfileThunk, updateProfilePhotoThunk } from '@redux/users';
 import './ProfilePanel.css';
 
 function ProfilePanel({ user }) {

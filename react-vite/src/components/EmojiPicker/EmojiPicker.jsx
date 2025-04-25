@@ -1,5 +1,5 @@
-import { emojiCodes } from '../../utils/emojiCodes';
-import { messageSocket } from '../../socket';
+import { emojiCodes } from '@utils/emojiCodes';
+import { messageSocket } from '@/socket';
 import './EmojiPicker.css';
 
 function EmojiPicker({ emojiPickerRef, setOpen, messageId, userId }) {

@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserWorkspacesThunk } from '../../redux/workspaces';
+import { getUserWorkspacesThunk } from '@redux/workspaces';
 import { FaPlus } from 'react-icons/fa6';
 import Workspace from '../Workspace';
 import WorkspaceForm from '../WorkspaceForm';
 import './WorkspaceList.css';
-import { useWorkspace } from '../../context/Workspace';
-import { useModal } from '../../context/Modal';
+import { useWorkspace } from '@context/Workspace';
+import { useModal } from '@context/Modal';
 
 function WorkspaceList() {
     const dispatch = useDispatch();

@@ -1,13 +1,13 @@
+import { channelSocket, messageSocket, socket } from '@/socket';
+import { useChannel } from '@context/Channel';
+import { joinChannelThunk } from '@redux/channels';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useChannel } from '../../context/Channel';
-import { joinChannelThunk } from '../../redux/channels';
-import { channelSocket, messageSocket, socket } from '../../socket';
 import { FaAngleDown } from 'react-icons/fa6';
-import OpenModalButton from '../OpenModalButton';
-import MessageFeed from '../MessageFeed/MessageFeed';
-import MessageInput from '../MessageInput';
+import { useDispatch, useSelector } from 'react-redux';
 import ChannelDetails from '../ChannelDetails';
+import MessageFeed from '../MessageFeed';
+import MessageInput from '../MessageInput';
+import OpenModalButton from '../OpenModalButton';
 import ProfilePanel from '../ProfilePanel';
 import './ChannelPanel.css';
 

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkLogout } from "../../redux/session";
+import { thunkLogout } from "@redux/session";
 import { FaAngleDown } from 'react-icons/fa6';
-import { useChannel } from "../../context/Channel";
+import { useChannel } from "@context/Channel";
 
 function Profile() {
   const dispatch = useDispatch();

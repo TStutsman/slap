@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { deleteWorkspaceThunk } from "../../redux/workspaces";
-import { useModal } from "../../context/Modal";
-import { channelSocket, messageSocket } from "../../socket";
+import { deleteWorkspaceThunk } from "@redux/workspaces";
+import { useModal } from "@context/Modal";
+import { channelSocket, messageSocket } from "@/socket";
 import './ConfirmDelete.css';
 
 function ConfirmDelete({ type='message', resourceId }) {

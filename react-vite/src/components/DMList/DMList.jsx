@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCaretDown } from 'react-icons/fa6'
 import { NavLink } from "react-router-dom";
-import { getAllUsersThunk } from "../../redux/users";
+import { getAllUsersThunk } from "@redux/users";
 import './DMList.css';
 
 function DMList() {

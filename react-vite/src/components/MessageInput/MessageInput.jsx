@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { messageSocket } from '../../socket';
+import { messageSocket } from '@/socket';
 import './MessageInput.css';
 import { IoPaperPlaneSharp } from "react-icons/io5";
 import { FaPlus } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
-import { useModal } from '../../context/Modal';
+import { useModal } from '@context/Modal';
 
 function MessageInput({ sessionUser, edit = null, channelId }) {
     // Context

@@ -1,8 +1,8 @@
+import { socket } from "@/socket";
+import { useModal } from "@context/Modal";
+import { initializeMessageResock } from "@redux/messages";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../context/Modal";
-import { initializeMessageResock } from "../../redux/messages";
-import { socket } from "../../socket";
 import Message from "../Message";
 
 function MessageFeed() {

@@ -1,8 +1,8 @@
 import { FaXmark } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
-import { useModal } from '../../context/Modal';
+import { useModal } from '@context/Modal';
 import './ChannelDetails.css';
-import { joinChannelThunk } from '../../redux/channels';
+import { joinChannelThunk } from '@redux/channels';
 
 function ChannelDetails({ channel, joined=false }) {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function ChannelDetails({ channel, joined=false }) {
         closeModal();
     }
 
-    const creator = users?.byId[channel.creatorId];
+    const creator = users?.byId?.[channel.creatorId];
     const creatorName = creator?.firstName + ' ' + creator?.lastName;
 
     return (
