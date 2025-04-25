@@ -1,13 +1,15 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, request, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_wtf.csrf import CSRFProtect, generate_csrf
+from flask_wtf.csrf import generate_csrf
 from flask_login import LoginManager
 from .models import db, User
 from .routes import api
 from .seeds import seed_commands
 from .config import Config
+
+# looks unused, but is REQUIRED by run.py :)
 from .events import socketio
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
@@ -21,8 +23,6 @@ login.login_view = 'api.auth.unauthorized'
 def load_user(id):
     return User.query.get(int(id))
 
-
-# Tell flask about our seed commands
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
@@ -39,11 +39,6 @@ Migrate(app, db)
 CORS(app)
 
 
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
-# Well.........
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -81,7 +76,7 @@ def api_help():
 @app.route('/<path:path>')
 def react_root(path):
     """
-    This route will direct to the public directory in our
+    This route will direct to the public directory in 
     react builds in the production environment for favicon
     or index.html requests
     """

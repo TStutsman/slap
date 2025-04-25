@@ -20,7 +20,7 @@ Slap, a full-stack application inspired by Slack, is a messaging service where t
 **Prerequisites**
 - NPM
 - A version of Node.js >= 14 on your local machine
-- Python 3.9
+- Python 3
 - PostgreSQL or SQLite3 in dev environment
 - An AWS S3 bucket
 
