@@ -7,6 +7,7 @@ import Navigation from "@components/navigation/Navigation";
 import { ChannelProvider } from "@context/Channel";
 import { Modal, ModalProvider } from "@context/Modal";
 import { thunkAuthenticate } from "@redux/session";
+import { getAllUsersThunk } from '@redux/users';
 import { WorkspaceProvider } from "@context/Workspace";
 
 export default function Layout() {
@@ -16,6 +17,7 @@ export default function Layout() {
 
   useEffect(() => {
     dispatch(thunkAuthenticate()).then(() => setIsLoaded(true));
+    dispatch(getAllUsersThunk())
   }, [dispatch]);
 
   return (
