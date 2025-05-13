@@ -1,4 +1,4 @@
-import { channelSocket, messageSocket, socket } from '@/socket';
+import { channelSocket, messageSocket } from '@/socket';
 import { useChannel } from '@context/Channel';
 import { joinChannelThunk } from '@redux/channels';
 import { useEffect, useState } from 'react';
@@ -28,13 +28,11 @@ function ChannelPanel() {
     // Opens the socket after user is logged in
     useEffect(() => {
         if(sessionUser !== null) {
-            socket.connect();
             messageSocket.connect();
             channelSocket.connect();
         }
 
         return () => {
-            socket.disconnect();
             messageSocket.disconnect();
             channelSocket.disconnect();
         }

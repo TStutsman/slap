@@ -1,4 +1,4 @@
-import { socket } from "@/socket";
+import { messageSocket } from "@/socket";
 import { useModal } from "@context/Modal";
 import { initializeMessageResock } from "@redux/messages";
 import { useEffect, useRef } from "react";
@@ -43,7 +43,7 @@ function MessageFeed() {
     // =====================================================
 
     // Wait for successful socket connection
-    if(!socket.connected) return null;
+    if(!messageSocket.connected) return null;
 
     return (
         <div id='message-feed' ref={messageFeed}>
