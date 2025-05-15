@@ -27,7 +27,7 @@ def username_exists(form, field):
 # then '.' 
 # and lastly [all chars not '@' or '.']"
 def is_email(form, field):
-    if not re.search('^[^@]+@[^@]+\.[^@\.]+$', field.data):
+    if not re.search(r'^[^@]+@[^@]+\.[^@\.]+$', field.data):
         raise ValidationError('Must provide a real email')
 
 class SignUpForm(FlaskForm):
